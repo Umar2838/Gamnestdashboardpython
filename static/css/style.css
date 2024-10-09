@@ -245,7 +245,15 @@ ul {
   bottom: 14px;
   font-size: 16px;
 }
+.error-text{
+  color: red;
+  padding:10px 0px 0px 10px
+}
+.success-text{
+  color: #FDB022;
+  padding:10px 0px 0px 10px
 
+}
 /* ================== Fonts Family Start ==================*/
 .fp {
   font-family: 'Poppins', sans-serif;

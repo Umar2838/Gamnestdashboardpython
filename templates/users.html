@@ -60,7 +60,7 @@
                                             <button class="dropdown-toggle d-flex align-items-center userDrp"
                                                 type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <img src="{%static 'images/avatar.png'%}" alt="avatar" class="userAvatar">
-                                                <span class="userName">Alice Johnson</span>
+                                                <span class="userName">{{username}}</span>
                                                 <i class="fas fa-angle-down userIcon"></i>
                                             </button>
                                             <div class="dropdown-menu">
@@ -536,184 +536,191 @@
                                     <div class="modal-content">
                                         <div class="modal-body p-3">
                                             <h2 class="sub-heading">Create New Role</h2>
-                                            <form action="">
+                                            <form action="#" method="post" id="roleForm">
+                                                {%csrf_token%}
                                                 <div class="row">
                                                     <div class="col-12 mt-3">
-                                                        <label for="" class="allLbl">Role Name</label>
-                                                        <input type="text" class="allinput w-100">
+                                                        <label for="roleName" class="allLbl">Role Name</label>
+                                                        <input type="text" id="roleName" class="allinput w-100">
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-12 mt-3">
-                                                        <label for="" class="allLbl">Description</label>
-                                                        <textarea name="" id="" cols="30" rows="5"
-                                                            class="allinput w-100"></textarea>
+                                                        <label for="description" class="allLbl">Description</label>
+                                                        <textarea id="description" cols="30" rows="5" class="allinput w-100"></textarea>
                                                     </div>
                                                 </div>
+                                            
+                                                <!-- Permissions section -->
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <h2 class="profileText my-3">Permissions</h2>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <h3 class="modalsubheading">Venue Management</h3>
-                                                        <p class=" checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t1" name="t1">
-                                                            <label for="t1">Manage venue information</label>
+                                                        <p class="checkbx checkbx2 mt-2">
+                                                            <input type="checkbox" id="manageVenue">
+                                                            <label for="manageVenue">Manage venue information</label>
                                                         </p>
                                                         <p class="checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t2" name="t2">
-                                                            <label for="t2">Add new venues</label>
+                                                            <input type="checkbox" id="addVenue">
+                                                            <label for="addVenue">Add new venues</label>
                                                         </p>
                                                         <p class="checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t3" name="t3">
-                                                            <label for="t3">Edit existing venues</label>
+                                                            <input type="checkbox" id="editVenue">
+                                                            <label for="editVenue">Edit existing venues</label>
                                                         </p>
                                                         <p class="checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t4" name="t4">
-                                                            <label for="t4">Delete venues</label>
+                                                            <input type="checkbox" id="deleteVenue">
+                                                            <label for="deleteVenue">Delete venues</label>
                                                         </p>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <h3 class="modalsubheading">Game Management</h3>
-                                                        <p class=" checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t5" name="t5">
-                                                            <label for="t5">Manage game information</label>
+                                                        <p class="checkbx checkbx2 mt-2">
+                                                            <input type="checkbox" id="manageGame">
+                                                            <label for="manageGame">Manage game information</label>
                                                         </p>
                                                         <p class="checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t6" name="t6">
-                                                            <label for="t6">Add new games</label>
+                                                            <input type="checkbox" id="addGame">
+                                                            <label for="addGame">Add new games</label>
                                                         </p>
                                                         <p class="checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t7" name="t7">
-                                                            <label for="t7">Edit existing games</label>
+                                                            <input type="checkbox" id="editGame">
+                                                            <label for="editGame">Edit existing games</label>
                                                         </p>
                                                         <p class="checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t8" name="t8">
-                                                            <label for="t8">Remove games</label>
+                                                            <input type="checkbox" id="removeGame">
+                                                            <label for="removeGame">Remove games</label>
                                                         </p>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <h3 class="modalsubheading">Ticket Management</h3>
-                                                        <p class=" checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t9" name="t9">
-                                                            <label for="t9">View ticket information</label>
+                                                        <p class="checkbx checkbx2 mt-2">
+                                                            <input type="checkbox" id="viewTickets">
+                                                            <label for="viewTickets">View ticket information</label>
                                                         </p>
                                                         <p class="checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t10" name="t10">
-                                                            <label for="t10">Update tickets status</label>
+                                                            <input type="checkbox" id="updateTickets">
+                                                            <label for="updateTickets">Update ticket status</label>
                                                         </p>
                                                         <p class="checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t11" name="t11">
-                                                            <label for="t11">Add new tickets</label>
+                                                            <input type="checkbox" id="addTickets">
+                                                            <label for="addTickets">Add new tickets</label>
                                                         </p>
                                                         <p class="checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t12" name="t12">
-                                                            <label for="t12">Delete tickets</label>
+                                                            <input type="checkbox" id="deleteTickets">
+                                                            <label for="deleteTickets">Delete tickets</label>
                                                         </p>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <h3 class="modalsubheading">User Management</h3>
-                                                        <p class=" checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t13" name="t13">
-                                                            <label for="t13">Manage user accounts</label>
+                                                        <p class="checkbx checkbx2 mt-2">
+                                                            <input type="checkbox" id="manageUsers">
+                                                            <label for="manageUsers">Manage user accounts</label>
                                                         </p>
                                                         <p class="checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t14" name="t14">
-                                                            <label for="t14">Add new users</label>
+                                                            <input type="checkbox" id="addUsers">
+                                                            <label for="addUsers">Add new users</label>
                                                         </p>
                                                         <p class="checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t15" name="t15">
-                                                            <label for="t15">Edit existing users</label>
+                                                            <input type="checkbox" id="editUsers">
+                                                            <label for="editUsers">Edit existing users</label>
                                                         </p>
                                                         <p class="checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t16" name="t16">
-                                                            <label for="t16">Delete users</label>
+                                                            <input type="checkbox" id="deleteUsers">
+                                                            <label for="deleteUsers">Delete users</label>
                                                         </p>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <h3 class="modalsubheading">Role Management</h3>
-                                                        <p class=" checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t17" name="t17">
-                                                            <label for="t17">Manage role permissions</label>
+                                                        <p class="checkbx checkbx2 mt-2">
+                                                            <input type="checkbox" id="manageRoles">
+                                                            <label for="manageRoles">Manage role permissions</label>
                                                         </p>
                                                         <p class="checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t18" name="t18">
-                                                            <label for="t18">Add new roles</label>
+                                                            <input type="checkbox" id="addRoles">
+                                                            <label for="addRoles">Add new roles</label>
                                                         </p>
                                                         <p class="checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t19" name="t19">
-                                                            <label for="t19">Edit existing roles</label>
+                                                            <input type="checkbox" id="editRoles">
+                                                            <label for="editRoles">Edit existing roles</label>
                                                         </p>
                                                         <p class="checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t20" name="t20">
-                                                            <label for="t20">Delete roles</label>
+                                                            <input type="checkbox" id="deleteRoles">
+                                                            <label for="deleteRoles">Delete roles</label>
                                                         </p>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <h3 class="modalsubheading">Report Generation</h3>
-                                                        <p class=" checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t21" name="t21">
-                                                            <label for="t21">Generate reports on system activity</label>
+                                                        <p class="checkbx checkbx2 mt-2">
+                                                            <input type="checkbox" id="generateReports">
+                                                            <label for="generateReports">Generate reports on system activity</label>
                                                         </p>
                                                         <p class="checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t22" name="t22">
-                                                            <label for="t22">View statistical data</label>
+                                                            <input type="checkbox" id="viewStats">
+                                                            <label for="viewStats">View statistical data</label>
                                                         </p>
                                                         <p class="checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t23" name="t23">
-                                                            <label for="t23">Export reports in various formats</label>
+                                                            <input type="checkbox" id="exportReports">
+                                                            <label for="exportReports">Export reports in various formats</label>
                                                         </p>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <h3 class="modalsubheading">Vendor Management</h3>
-                                                        <p class=" checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t25" name="t25">
-                                                            <label for="t25">Manage vendor accounts</label>
+                                                        <p class="checkbx checkbx2 mt-2">
+                                                            <input type="checkbox" id="manageVendors">
+                                                            <label for="manageVendors">Manage vendor accounts</label>
                                                         </p>
                                                         <p class="checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t26" name="t26">
-                                                            <label for="t26">Add new vendors</label>
+                                                            <input type="checkbox" id="addVendors">
+                                                            <label for="addVendors">Add new vendors</label>
                                                         </p>
                                                         <p class="checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t27" name="t27">
-                                                            <label for="t27">Edit existing vendors</label>
+                                                            <input type="checkbox" id="editVendors">
+                                                            <label for="editVendors">Edit existing vendors</label>
                                                         </p>
                                                         <p class="checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t28" name="t28">
-                                                            <label for="t28">Remove vendors</label>
+                                                            <input type="checkbox" id="removeVendors">
+                                                            <label for="removeVendors">Remove vendors</label>
                                                         </p>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <h3 class="modalsubheading">System Configuration</h3>
-                                                        <p class=" checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t29" name="t29">
-                                                            <label for="t29">Configure system settings</label>
+                                                        <p class="checkbx checkbx2 mt-2">
+                                                            <input type="checkbox" id="configureSystem">
+                                                            <label for="configureSystem">Configure system settings</label>
                                                         </p>
                                                         <p class="checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t30" name="t30">
-                                                            <label for="t30">Customize system perferences</label>
+                                                            <input type="checkbox" id="customizeSystem">
+                                                            <label for="customizeSystem">Customize system preferences</label>
                                                         </p>
                                                         <p class="checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t31" name="t31">
-                                                            <label for="t31">Manage system integrations</label>
+                                                            <input type="checkbox" id="manageIntegrations">
+                                                            <label for="manageIntegrations">Manage system integrations</label>
                                                         </p>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <h3 class="modalsubheading">Customer Support</h3>
                                                         <p class="checkbx checkbx2 mt-2">
-                                                            <input type="checkbox" id="t24" name="t24">
-                                                            <label for="t24">Respond to user inquiries</label>
+                                                            <input type="checkbox" id="respondInquiries">
+                                                            <label for="respondInquiries">Respond to user inquiries</label>
                                                         </p>
                                                     </div>
+                                                    <p class="error-text" id="error" ></p>
+                                                    <p class="success-text" id="success" ></p>
+
                                                 </div>
+                                            
+                                                <!-- Form Buttons -->
                                                 <div class="row">
                                                     <div class="col-12 text-end mt-3">
-                                                        <button class="orange-btn-3">Cancel</button>
-                                                        <button type="button " class="orange-btn"
-                                                            data-bs-dismiss="modal" aria-label="Close">Create</button>
+                                                        <button class="orange-btn-3" type="button">Cancel</button>
+                                                        <button type="submit"  class="orange-btn">Create</button>
                                                     </div>
                                                 </div>
                                             </form>
+                                            
                                         </div>
                                     </div>
                                 </div>

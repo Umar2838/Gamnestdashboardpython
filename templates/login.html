@@ -23,17 +23,18 @@
                 <img src="{%static 'images/logo.png'%}" alt="" loading="lazy" class="login-brand-logo">
             </a>
         </div>
-        <form action="" method="post" >
-         
+        <form action="" id="loginbtn" method="post" >
+         {% csrf_token %}
             <label class="login-group" >Username
-                <input class="login-input" type="text" name="username" placeholder="Username" id="username" />
+                <input class="login-input" type="text" required name="username" placeholder="Username" id="username" />
             </label>
             <label class="login-group" style="position: relative" >Password
-                <input class="login-input"  type="password" name="password" placeholder="Password" id="password"  onclick="togglePasswordVisibility()"  />
+                <input class="login-input" required  type="password" name="password" placeholder="Password" id="password"  onclick="togglePasswordVisibility()"  />
                 <i id="toggleIcon" class="fas fa-eye-slash"></i>
             </label>
+            <p class="error-text" id="error" ></p>
 
-    <button type="button" id="loginbtn" class="login-btn">Login</button>
+    <button type="submit" class="login-btn">Login</button>
 
           
 

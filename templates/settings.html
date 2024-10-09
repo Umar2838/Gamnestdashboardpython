@@ -60,7 +60,7 @@
                                             <button class="dropdown-toggle d-flex align-items-center userDrp"
                                                 type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <img src="{%static 'images/avatar.png'%}" alt="avatar" class="userAvatar">
-                                                <span class="userName">Alice Johnson</span>
+                                                <span class="userName">{{username}}</span>
                                                 <i class="fas fa-angle-down userIcon"></i>
                                             </button>
                                             <div class="dropdown-menu">
@@ -296,41 +296,44 @@
                                                     tabindex="0">
                                                     <h2 class="settingsHeading">General Inforamtion</h2>
                                                     <p class="settingPara">Lorem ipsum dolor sit amet consectetur.</p>
-                                                    <form action="">
+                                                    <form action="" method="post" id="detailsChange">
+                                                        {%csrf_token%}
                                                         <div class="row mt-3">
                                                             <div class="col-6">
                                                                 <h3 class="profileText">Profile Picture</h3>
                                                                 <div class="d-flex align-items-center">
-                                                                    <img src="{%static 'images/people2.png'%}" alt=""
+                                                                    <img src="{%static 'images/avatar.png'%}" alt=""
                                                                         class="profilePic">
                                                                     <div>
-                                                                        <p class="profileName">Alice Johnson</p>
+                                                                        <p class="profileName">{{username}}</p>
                                                                         <p class="profileRole">Administrator</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-6 text-end mt-3">
-                                                                <button class="orange-btn">Change</button>
+                                                                <button type="submit" class="orange-btn">Change</button>
                                                                 <button class="orange-btn2">Delete</button>
                                                             </div>
                                                             <div class="col-6 mt-3">
                                                                 <label for="" class="allLbl">Username</label>
-                                                                <input type="text" class="allinput w-100"
-                                                                    value="Alice182">
+                                                                <input type="text" id="changeusername" class="allinput w-100"
+                                                                    value={{username}}>
                                                             </div>
                                                             <div class="col-6 mt-3">
                                                                 <label for="" class="allLbl">Email</label>
-                                                                <input type="email" class="allinput w-100"
-                                                                    value="alice.johnson@example.com">
+                                                                <input type="email" id="changemail" class="allinput w-100"
+                                                                    value={{email}}>
                                                             </div>
+                                                            <p class="error-text" id="error" >{{errormessage}}</p>
+                                                            <p class="success-text" id="success" >{{successmessage}}</p>
                                                             <div class="col-6 mt-3">
                                                                 <label for="" class="allLbl">Phone Number</label>
                                                                 <input type="number" class="allinput w-100"
-                                                                    value="12309834509">
+                                                                    value="">
                                                             </div>
                                                             <div class="col-6 mt-3">
                                                                 <label for="" class="allLbl">Role</label>
-                                                                <input type="text" class="allinput w-100"
+                                                                <input type="text" readonly class="allinput w-100"
                                                                     value="Administrator">
                                                             </div>
                                                         </div>

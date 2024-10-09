@@ -1,3 +1,212 @@
+// ==============================Password Toggle===========================================//
+function togglePasswordVisibility() {
+  const passwordInput = document.getElementById('password');
+  const toggleIcon = document.getElementById('toggleIcon');
+  if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+      toggleIcon.classList.remove('fa-eye-slash');
+      toggleIcon.classList.add('fa-eye');
+  } else {
+      passwordInput.type = 'password';
+      toggleIcon.classList.remove('fa-eye');
+      toggleIcon.classList.add('fa-eye-slash');
+  }
+}
+// ==============================Password Toggle===========================================//
+
+
+// =======================================Login functionality==================================//
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+          }
+      }
+  }
+  return cookieValue;
+}
+const csrftoken = getCookie('csrftoken'); 
+
+const username = document.getElementById("username");
+const password = document.getElementById("password");
+const loginbtn = document.getElementById("loginbtn");
+const error = document.getElementById("error")
+const success = document.getElementById("success");
+
+loginbtn && loginbtn.addEventListener("submit",(e)=>{
+  e.preventDefault();
+  if(!username.value || !password.value){
+     error.textContent = "Username or Password Required"
+  }
+  const data = {username: username.value, password: password.value}
+
+  fetch(' /',{
+    method:'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken':csrftoken
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(data=>{
+    if(data.success){
+      window.location.href = '/index'
+    }
+    else{
+      error.textContent = data.message || "Invalid credentials";
+    }
+  })
+  .catch(error => {
+    console.error('Error',error);
+    error.textContent = "An error occurred. Please try again.";
+
+  })
+
+
+})
+// =======================================Login functionality==================================//
+
+//========================================Setting information changing functionality==========================//
+const changeusername = document.getElementById("changeusername")
+const changeemail = document.getElementById("changemail")
+const detailsChange = document.getElementById("detailsChange")
+
+detailsChange && detailsChange.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+
+  if (!changeusername.value || !changeemail.value) {
+      error.textContent = "Username or Email must be filled";
+  }
+
+  const changingData = {
+      newusername: changeusername.value,
+      newemail: changeemail.value
+  };
+
+  fetch('settings', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken 
+      },
+      body: JSON.stringify(changingData) 
+  })
+  .then(response => response.json())
+  .then(data => {
+      if (data.success) {
+          // window.location.href = '/settings';
+          success.textContent = "Profile updated successfully"
+      } else {
+          error.textContent = data.message || "Invalid input";
+      }
+  })
+  .catch(error => {
+      console.error('Error:', error);
+      error.textContent = "An error occurred. Please try again.";
+  });
+});
+//========================================Setting information changing functionality==========================//
+
+//========================================New Role Functionality==========================//
+const roleForm = document.getElementById('roleForm')
+roleForm && roleForm.addEventListener('submit', function(event) {
+  event.preventDefault(); 
+
+  // Get the role name and description
+  const roleName = document.getElementById('roleName').value;
+  const description = document.getElementById('description').value;
+  const permissions = {
+      venueManagement: {
+          manageVenue: document.getElementById('manageVenue').checked,
+          addVenue: document.getElementById('addVenue').checked,
+          editVenue: document.getElementById('editVenue').checked,
+          deleteVenue: document.getElementById('deleteVenue').checked
+      },
+      gameManagement: {
+          manageGame: document.getElementById('manageGame').checked,
+          addGame: document.getElementById('addGame').checked,
+          editGame: document.getElementById('editGame').checked,
+          removeGame: document.getElementById('removeGame').checked
+      },
+      ticketManagement: {
+          viewTickets: document.getElementById('viewTickets').checked,
+          updateTickets: document.getElementById('updateTickets').checked,
+          addTickets: document.getElementById('addTickets').checked,
+          deleteTickets: document.getElementById('deleteTickets').checked
+      },
+      userManagement: {
+          manageUsers: document.getElementById('manageUsers').checked,
+          addUsers: document.getElementById('addUsers').checked,
+          editUsers: document.getElementById('editUsers').checked,
+          deleteUsers: document.getElementById('deleteUsers').checked
+      },
+      roleManagement: {
+          manageRoles: document.getElementById('manageRoles').checked,
+          addRoles: document.getElementById('addRoles').checked,
+          editRoles: document.getElementById('editRoles').checked,
+          deleteRoles: document.getElementById('deleteRoles').checked
+      },
+      reportGeneration: {
+          generateReports: document.getElementById('generateReports').checked,
+          viewStats: document.getElementById('viewStats').checked,
+          exportReports: document.getElementById('exportReports').checked
+      },
+      vendorManagement: {
+          manageVendors: document.getElementById('manageVendors').checked,
+          addVendors: document.getElementById('addVendors').checked,
+          editVendors: document.getElementById('editVendors').checked,
+          removeVendors: document.getElementById('removeVendors').checked
+      },
+      systemConfiguration: {
+          configureSystem: document.getElementById('configureSystem').checked,
+          customizeSystem: document.getElementById('customizeSystem').checked,
+          manageIntegrations: document.getElementById('manageIntegrations').checked
+      },
+      customerSupport: {
+          respondInquiries: document.getElementById('respondInquiries').checked
+      }
+  };
+
+  if(!roleName || !description || !permissions){
+    error.textContent = "All field are required"
+  }
+
+  const formData = {
+      roleName,
+      description,
+      permissions
+  }; 
+  // Example of sending the data to a server
+  
+  fetch('users', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrftoken // Ensure csrftoken is properly set in your JavaScript code
+    },
+    body: JSON.stringify(formData)
+}).then(response => response.json())
+  .then(data => {
+      console.log('Success:', data);
+      // Optionally, reload or update the UI after successful creation
+  }).catch((error) => {
+      console.error('Error:', error);
+  });
+});
+
+
+//========================================New Role Functionality==========================//
+
+
+
 // ============================== Navbar Toggle ============================================//
 
 function toggleSideNav() {
@@ -246,4 +455,3 @@ function hideShowDiv() {
 // =============== Hide Show Column Support Page ==================//
 
 // Select all submenu items
-
