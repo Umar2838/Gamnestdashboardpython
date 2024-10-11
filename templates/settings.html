@@ -226,7 +226,7 @@
 
 
                                 <li>
-                                    <a href="#_">
+                                    <a href="#_" id="logout" >
                                         <svg class="svgNavIcon" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -306,7 +306,7 @@
                                                                         class="profilePic">
                                                                     <div>
                                                                         <p class="profileName">{{username}}</p>
-                                                                        <p class="profileRole">Administrator</p>
+                                                                        <p class="profileRole">{{user.profile.role.name}}</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -334,7 +334,7 @@
                                                             <div class="col-6 mt-3">
                                                                 <label for="" class="allLbl">Role</label>
                                                                 <input type="text" readonly class="allinput w-100"
-                                                                    value="Administrator">
+                                                                    value={{user.profile.role.name}}>
                                                             </div>
                                                         </div>
 

@@ -22,7 +22,6 @@ function getCookie(name) {
       const cookies = document.cookie.split(';');
       for (let i = 0; i < cookies.length; i++) {
           const cookie = cookies[i].trim();
-          // Does this cookie string begin with the name we want?
           if (cookie.substring(0, name.length + 1) === (name + '=')) {
               cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
               break;
@@ -33,18 +32,19 @@ function getCookie(name) {
 }
 const csrftoken = getCookie('csrftoken'); 
 
-const username = document.getElementById("username");
-const password = document.getElementById("password");
+
 const loginbtn = document.getElementById("loginbtn");
 const error = document.getElementById("error")
 const success = document.getElementById("success");
 
 loginbtn && loginbtn.addEventListener("submit",(e)=>{
   e.preventDefault();
-  if(!username.value || !password.value){
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+  if(!username || !password){
      error.textContent = "Username or Password Required"
   }
-  const data = {username: username.value, password: password.value}
+  const data = {username: username, password: password}
 
   fetch(' /',{
     method:'POST',
@@ -190,20 +190,105 @@ roleForm && roleForm.addEventListener('submit', function(event) {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': csrftoken // Ensure csrftoken is properly set in your JavaScript code
+        'X-CSRFToken': csrftoken 
     },
     body: JSON.stringify(formData)
 }).then(response => response.json())
   .then(data => {
       console.log('Success:', data);
+      error.textContent = data.error
       success.textContent = "Role created successfully"
-  }).catch((error) => {
-      console.error('Error:', error);
+    }).catch((err) => {
+      console.error('Error:', err);
   });
 });
 
-
 //========================================New Role Functionality==========================//
+
+//========================================New User Functionality==========================//
+// app.js
+const usercreateForm = document.getElementById("usercreateForm");
+
+usercreateForm && usercreateForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const newusername = document.getElementById("username").value;
+    const useremail = document.getElementById("useremail").value;
+    const userpassword = document.getElementById("userpassword").value;
+    const userrole = document.getElementById("userrole").value;
+
+    const errorElement = document.getElementById("error");
+    const successElement = document.getElementById("success");
+
+    // Clear previous messages
+    errorElement.textContent = "";
+    successElement.textContent = "";
+
+    if (!newusername || !useremail || !userpassword || !userrole) {
+        errorElement.textContent = "All fields are required.";
+        return;
+    }
+
+    const newUserData = {
+        newusername: newusername,
+        useremail: useremail,
+        userpassword:userpassword,
+        userrole: userrole
+    };
+ console.log(newUserData);
+    fetch('users', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken  // Ensure csrftoken is correctly defined
+        },
+        body: JSON.stringify(newUserData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            error.textContent = data.error;
+        } else {
+            success.textContent = data.message;
+            usercreateForm.reset();
+        }
+    })
+    .catch((err) => {
+        console.error('Error:', err);
+        error.textContent = 'An error occurred while creating the user.';
+    });
+});
+
+
+//========================================New User Functionality==========================//
+
+//========================================Logout functionality==========================//
+const logout = document.getElementById("logout")
+logout && logout.addEventListener("click", () => {
+      fetch('logout', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': csrftoken
+          },
+      })
+      .then(response => {
+          if (response.ok) {
+              return response.json();
+          } else {
+              throw new Error('Logout failed');
+          }
+      })
+      .then(data => {
+          window.location.href = "/";
+      })
+      .catch(error => {
+          console.error('Error:', error);
+          alert('An error occurred during logout. Please try again.');
+      });
+  })
+
+
+//========================================Logout functionality==========================//
 
 
 
@@ -226,6 +311,14 @@ function toggleSideNav() {
     buttonIcon.classList.add("fa-angle-right");
   }
 }
+
+// ============================== Dashboard Permission check ============================================//
+
+
+
+// ============================== Dashboard Permission check ============================================//
+
+
 // ============================== Navbar Toggle ============================================//
 // ============================== ChartJS ============================================//
 // ===============Dashboard Page ==================//

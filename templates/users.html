@@ -25,7 +25,7 @@
                     <nav class="navbar navbar-expand-md headerNav">
                         <div class="container-fluid">
                             <a class="navbar-brand" />
-                                <img src="{%static 'images/logo.png'%}" alt="" loading="lazy" class="brand-logo">
+                            <img src="{%static 'images/logo.png'%}" alt="" loading="lazy" class="brand-logo">
                             </a>
                             <div class="position-relative">
                                 <input type="text" placeholder="Search" class="searchField">
@@ -59,7 +59,8 @@
                                         <div class="dropdown-center">
                                             <button class="dropdown-toggle d-flex align-items-center userDrp"
                                                 type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <img src="{%static 'images/avatar.png'%}" alt="avatar" class="userAvatar">
+                                                <img src="{%static 'images/avatar.png'%}" alt="avatar"
+                                                    class="userAvatar">
                                                 <span class="userName">{{username}}</span>
                                                 <i class="fas fa-angle-down userIcon"></i>
                                             </button>
@@ -157,21 +158,30 @@
 
                                 <li>
                                     <a href="units" class="position-relative svgpath1">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M6.5 14H9.5M13.7071 16.7071C13.8946 16.5196 14 16.2652 14 16V4C14 3.73478 13.8946 3.48043 13.7071 3.29289C13.5196 3.10536 13.2652 3 13 3H3C2.73478 3 2.48043 3.10536 2.29289 3.29289C2.10536 3.48043 2 3.73478 2 4V16C2 16.2652 2.10536 16.5196 2.29289 16.7071C2.48043 16.8946 2.73478 17 3 17H8" stroke="#636466" stroke-width="1.25"/>
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M6.5 14H9.5M13.7071 16.7071C13.8946 16.5196 14 16.2652 14 16V4C14 3.73478 13.8946 3.48043 13.7071 3.29289C13.5196 3.10536 13.2652 3 13 3H3C2.73478 3 2.48043 3.10536 2.29289 3.29289C2.10536 3.48043 2 3.73478 2 4V16C2 16.2652 2.10536 16.5196 2.29289 16.7071C2.48043 16.8946 2.73478 17 3 17H8"
+                                                stroke="#636466" stroke-width="1.25" />
                                             <g clip-path="url(#clip0_5323_9514)">
-                                            <path d="M11.628 13.0581C11.5911 13.156 11.594 13.2645 11.6362 13.3603C11.6783 13.4561 11.7563 13.5315 11.8535 13.5704C11.9506 13.6094 12.0591 13.6087 12.1558 13.5686C12.2524 13.5284 12.3295 13.452 12.3704 13.3557L11.628 13.0581ZM19.628 13.3557C19.6468 13.4055 19.6753 13.4511 19.7119 13.4897C19.7485 13.5283 19.7925 13.5593 19.8412 13.5807C19.8899 13.6022 19.9424 13.6137 19.9956 13.6145C20.0489 13.6154 20.1017 13.6057 20.1511 13.5859C20.2005 13.5661 20.2455 13.5366 20.2834 13.4992C20.3212 13.4618 20.3513 13.4172 20.3717 13.3681C20.3921 13.3189 20.4025 13.2662 20.4023 13.2129C20.4021 13.1597 20.3912 13.1071 20.3704 13.0581L19.628 13.3557ZM21.1992 13.8997V16.5749H21.9992V13.8989L21.1992 13.8997ZM18.968 18.8069H18.5344V19.6069H18.968V18.8069ZM13.4656 18.8069H13.032V19.6069H13.4656V18.8069ZM10.8 16.5749V13.8989H10V16.5749H10.8ZM10.7904 13.9109C14.1953 12.9379 17.8047 12.9379 21.2096 13.9109L21.4288 13.1421C17.8806 12.1283 14.1194 12.1283 10.5712 13.1421L10.7904 13.9109ZM13.032 18.8069C12.44 18.8069 11.8723 18.5717 11.4537 18.1531C11.0352 17.7346 10.8 17.1668 10.8 16.5749H10C10 17.379 10.3194 18.1502 10.8881 18.7188C11.4567 19.2874 12.2279 19.6069 13.032 19.6069V18.8069ZM13.3136 18.8973C13.3287 18.8701 13.3507 18.8475 13.3774 18.8316C13.4041 18.8157 13.4345 18.8072 13.4656 18.8069V19.6069C13.5781 19.6071 13.6886 19.5769 13.7854 19.5194C13.8821 19.4619 13.9623 19.3794 14.016 19.2805L13.3136 18.8973ZM14.016 19.2805C14.8728 17.7101 17.1272 17.7101 17.9848 19.2805L18.6864 18.8973C17.5264 16.7709 14.4728 16.7709 13.3136 18.8973L14.016 19.2805ZM18.5344 18.8069C18.5984 18.8069 18.656 18.8413 18.6864 18.8973L17.9848 19.2805C18.0385 19.3794 18.1179 19.4619 18.2146 19.5194C18.3114 19.5769 18.4219 19.6071 18.5344 19.6069V18.8069ZM21.2 16.5749C21.2 17.1668 20.9648 17.7346 20.5463 18.1531C20.1277 18.5717 19.56 18.8069 18.968 18.8069V19.6069C19.7721 19.6069 20.5433 19.2874 21.1119 18.7188C21.6806 18.1502 22 17.379 22 16.5749H21.2ZM22 13.8989C22 13.7278 21.9442 13.5614 21.8411 13.4248C21.7381 13.2883 21.5933 13.189 21.4288 13.1421L21.2096 13.9109C21.2071 13.9099 21.2049 13.9082 21.2033 13.9061C21.2016 13.904 21.2005 13.9015 21.2 13.8989H22ZM10.8 13.8989C10.7995 13.9015 10.7984 13.904 10.7967 13.9061C10.7951 13.9082 10.7929 13.9099 10.7904 13.9109L10.5712 13.1421C10.4068 13.189 10.2622 13.2889 10.1591 13.4253C10.0561 13.5617 10.0002 13.7279 10 13.8989H10.8ZM12.0256 12.0645L11.628 13.0581L12.3704 13.3557L12.7688 12.3613L12.0256 12.0645ZM19.2312 12.3605L19.6288 13.3557L20.3704 13.0581L19.9736 12.0645L19.2312 12.3605ZM13.8832 11.6069H18.1168V10.8069H13.8832V11.6069ZM19.9736 12.0645C19.8252 11.6933 19.569 11.3751 19.238 11.151C18.9071 10.9268 18.5165 10.8069 18.1168 10.8069V11.6069C18.3567 11.6068 18.5911 11.6787 18.7897 11.8132C18.9883 11.9476 19.1421 12.1386 19.2312 12.3613L19.9736 12.0645ZM12.7688 12.3605C12.858 12.1379 13.0118 11.9472 13.2105 11.8128C13.4091 11.6785 13.6434 11.6068 13.8832 11.6069V10.8069C13.4835 10.8069 13.0929 10.9268 12.762 11.151C12.431 11.3751 12.174 11.6933 12.0256 12.0645L12.7688 12.3605Z" stroke="#636466"/>
+                                                <path
+                                                    d="M11.628 13.0581C11.5911 13.156 11.594 13.2645 11.6362 13.3603C11.6783 13.4561 11.7563 13.5315 11.8535 13.5704C11.9506 13.6094 12.0591 13.6087 12.1558 13.5686C12.2524 13.5284 12.3295 13.452 12.3704 13.3557L11.628 13.0581ZM19.628 13.3557C19.6468 13.4055 19.6753 13.4511 19.7119 13.4897C19.7485 13.5283 19.7925 13.5593 19.8412 13.5807C19.8899 13.6022 19.9424 13.6137 19.9956 13.6145C20.0489 13.6154 20.1017 13.6057 20.1511 13.5859C20.2005 13.5661 20.2455 13.5366 20.2834 13.4992C20.3212 13.4618 20.3513 13.4172 20.3717 13.3681C20.3921 13.3189 20.4025 13.2662 20.4023 13.2129C20.4021 13.1597 20.3912 13.1071 20.3704 13.0581L19.628 13.3557ZM21.1992 13.8997V16.5749H21.9992V13.8989L21.1992 13.8997ZM18.968 18.8069H18.5344V19.6069H18.968V18.8069ZM13.4656 18.8069H13.032V19.6069H13.4656V18.8069ZM10.8 16.5749V13.8989H10V16.5749H10.8ZM10.7904 13.9109C14.1953 12.9379 17.8047 12.9379 21.2096 13.9109L21.4288 13.1421C17.8806 12.1283 14.1194 12.1283 10.5712 13.1421L10.7904 13.9109ZM13.032 18.8069C12.44 18.8069 11.8723 18.5717 11.4537 18.1531C11.0352 17.7346 10.8 17.1668 10.8 16.5749H10C10 17.379 10.3194 18.1502 10.8881 18.7188C11.4567 19.2874 12.2279 19.6069 13.032 19.6069V18.8069ZM13.3136 18.8973C13.3287 18.8701 13.3507 18.8475 13.3774 18.8316C13.4041 18.8157 13.4345 18.8072 13.4656 18.8069V19.6069C13.5781 19.6071 13.6886 19.5769 13.7854 19.5194C13.8821 19.4619 13.9623 19.3794 14.016 19.2805L13.3136 18.8973ZM14.016 19.2805C14.8728 17.7101 17.1272 17.7101 17.9848 19.2805L18.6864 18.8973C17.5264 16.7709 14.4728 16.7709 13.3136 18.8973L14.016 19.2805ZM18.5344 18.8069C18.5984 18.8069 18.656 18.8413 18.6864 18.8973L17.9848 19.2805C18.0385 19.3794 18.1179 19.4619 18.2146 19.5194C18.3114 19.5769 18.4219 19.6071 18.5344 19.6069V18.8069ZM21.2 16.5749C21.2 17.1668 20.9648 17.7346 20.5463 18.1531C20.1277 18.5717 19.56 18.8069 18.968 18.8069V19.6069C19.7721 19.6069 20.5433 19.2874 21.1119 18.7188C21.6806 18.1502 22 17.379 22 16.5749H21.2ZM22 13.8989C22 13.7278 21.9442 13.5614 21.8411 13.4248C21.7381 13.2883 21.5933 13.189 21.4288 13.1421L21.2096 13.9109C21.2071 13.9099 21.2049 13.9082 21.2033 13.9061C21.2016 13.904 21.2005 13.9015 21.2 13.8989H22ZM10.8 13.8989C10.7995 13.9015 10.7984 13.904 10.7967 13.9061C10.7951 13.9082 10.7929 13.9099 10.7904 13.9109L10.5712 13.1421C10.4068 13.189 10.2622 13.2889 10.1591 13.4253C10.0561 13.5617 10.0002 13.7279 10 13.8989H10.8ZM12.0256 12.0645L11.628 13.0581L12.3704 13.3557L12.7688 12.3613L12.0256 12.0645ZM19.2312 12.3605L19.6288 13.3557L20.3704 13.0581L19.9736 12.0645L19.2312 12.3605ZM13.8832 11.6069H18.1168V10.8069H13.8832V11.6069ZM19.9736 12.0645C19.8252 11.6933 19.569 11.3751 19.238 11.151C18.9071 10.9268 18.5165 10.8069 18.1168 10.8069V11.6069C18.3567 11.6068 18.5911 11.6787 18.7897 11.8132C18.9883 11.9476 19.1421 12.1386 19.2312 12.3613L19.9736 12.0645ZM12.7688 12.3605C12.858 12.1379 13.0118 11.9472 13.2105 11.8128C13.4091 11.6785 13.6434 11.6068 13.8832 11.6069V10.8069C13.4835 10.8069 13.0929 10.9268 12.762 11.151C12.431 11.3751 12.174 11.6933 12.0256 12.0645L12.7688 12.3605Z"
+                                                    stroke="#636466" />
                                             </g>
                                             <defs>
-                                            <clipPath id="clip0_5323_9514">
-                                            <rect width="12" height="11.3793"  transform="translate(10 9.20679)"/>
-                                            </clipPath>
+                                                <clipPath id="clip0_5323_9514">
+                                                    <rect width="12" height="11.3793"
+                                                        transform="translate(10 9.20679)" />
+                                                </clipPath>
                                             </defs>
-                                            </svg>
-                                            
-                                            &nbsp; &nbsp;Units  <svg width="24" class="unit-arrow" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M7.41 8.58008L12 13.1701L16.59 8.58008L18 10.0001L12 16.0001L6 10.0001L7.41 8.58008Z" fill="#636466"/>
-                                                </svg>
+                                        </svg>
+
+                                        &nbsp; &nbsp;Units <svg width="24" class="unit-arrow" height="24"
+                                            viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M7.41 8.58008L12 13.1701L16.59 8.58008L18 10.0001L12 16.0001L6 10.0001L7.41 8.58008Z"
+                                                fill="#636466" />
+                                        </svg>
                                     </a>
                                 </li>
 
@@ -188,7 +198,7 @@
                                         Statistics</a>
                                 </li>
 
-                               
+
 
                                 <li>
                                     <a href="users" class="active">
@@ -226,7 +236,7 @@
 
 
                                 <li>
-                                    <a href="#_">
+                                    <a href="#_" id="logout" >
                                         <svg class="svgNavIcon" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -329,51 +339,66 @@
                                                                             </th>
                                                                         </thead>
                                                                         <tbody>
+                                                                            {% for user in page_obj %}
                                                                             <tr>
                                                                                 <td>
                                                                                     <p class="checkbx">
-                                                                                        <input type="checkbox" id="c2"
+                                                                                        <input type="checkbox"
+                                                                                            id="user_{{ user.id }}"
                                                                                             name="cb">
-                                                                                        <label for="c2">John Doe</label>
+                                                                                        <label
+                                                                                            for="user_{{ user.id }}">{{user.username}}</label>
                                                                                     </p>
                                                                                 </td>
-                                                                                <td>john.doe@example.com</td>
-                                                                                <td>Administrator</td>
-                                                                                <td>2023-12-31</td>
-                                                                                <td><span
+                                                                                <td>{{ user.email }}</td>
+                                                                                <td>
+                                                                                    {% if user.profile and user.profile.role %}
+                                                                                        {{ user.profile.role.name }}
+                                                                                    {% else %}
+                                                                                        N/A
+                                                                                    {% endif %}
+                                                                                </td>
+                                                                                
+                                                                                <td>
+                                                                                    {% if user.last_login %}
+                                                                                    {{ user.last_login|date:"Y-m-d" }}
+                                                                                    {% else %}
+                                                                                    Never
+                                                                                    {% endif %}
+                                                                                </td>
+                                                                                <td>
+                                                                                    {% if user.is_active %}
+                                                                                    <span
                                                                                         class="activeSpan">Active</span>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <p class="checkbx">
-                                                                                        <input type="checkbox" id="c3"
-                                                                                            name="cb">
-                                                                                        <label for="c3">Emily
-                                                                                            Smith</label>
-                                                                                    </p>
-                                                                                </td>
-                                                                                <td>e.smith@example.com</td>
-                                                                                <td>Vendor</td>
-                                                                                <td>2023-12-31</td>
-                                                                                <td><span
+                                                                                    {% else %}
+                                                                                    <span
                                                                                         class="inactiveSpan">Inactive</span>
+                                                                                    {% endif %}
                                                                                 </td>
+
                                                                             </tr>
+                                                                            {% endfor %}
                                                                         </tbody>
+
                                                                     </table>
                                                                 </div>
+                                                                <!-- Pagination -->
                                                                 <ul class="pagination mt-3 justify-content-end pe-3">
+                                                                    {% if page_obj.has_previous %}
                                                                     <li class="page-item"><a class="page-link"
-                                                                            href="#">Previous</a></li>
-                                                                    <li class="page-item active"><a class="page-link"
-                                                                            href="#">1</a></li>
+                                                                            href="?page=1">Previous</a></li>
+                                                                    {% endif %}
+                                                                    {% for i in page_obj.paginator.page_range %}
+                                                                    <li
+                                                                        class="page-item {% if page_obj.number == i %}active{% endif %}">
+                                                                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                                                                    </li>
+                                                                    {% endfor %}
+                                                                    {% if page_obj.has_next %}
                                                                     <li class="page-item"><a class="page-link"
-                                                                            href="#">2</a></li>
-                                                                    <li class="page-item"><a class="page-link"
-                                                                            href="#">3</a></li>
-                                                                    <li class="page-item"><a class="page-link"
-                                                                            href="#">Next</a></li>
+                                                                            href="?page={{ page_obj.paginator.num_pages }}">Next</a>
+                                                                    </li>
+                                                                    {% endif %}
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -412,74 +437,74 @@
                                                                 <div class="table-responsive mt-3">
                                                                     <table class="table dataTable">
                                                                         <thead>
-                                                                            <th>
-                                                                                <p class="checkbx">
-                                                                                    <input type="checkbox" id="c1"
-                                                                                        name="cb">
-                                                                                    <label for="c1">Role name <i
-                                                                                            class="fas fa-angle-down ms-2"></i></label>
-                                                                                </p>
-                                                                            </th>
-                                                                            <th>Description <i
-                                                                                    class="fas fa-angle-down ms-2"></i>
-                                                                            </th>
-                                                                            <th>Users <i
-                                                                                    class="fas fa-angle-down ms-2"></i>
-                                                                            </th>
-                                                                            <th>Status <i
-                                                                                    class="fas fa-angle-down ms-2"></i>
-                                                                            </th>
+                                                                            <tr>
+                                                                                <th>
+                                                                                    <p class="checkbx">
+                                                                                        <input type="checkbox" id="c1"
+                                                                                            name="cb">
+                                                                                        <label for="c1">Role name <i
+                                                                                                class="fas fa-angle-down ms-2"></i></label>
+                                                                                    </p>
+                                                                                </th>
+                                                                                <th>Description <i
+                                                                                        class="fas fa-angle-down ms-2"></i>
+                                                                                </th>
+                                                                                <th>Users <i
+                                                                                        class="fas fa-angle-down ms-2"></i>
+                                                                                </th>
+                                                                                <!-- <th>Status <i
+                                                                                        class="fas fa-angle-down ms-2"></i>
+                                                                                </th> -->
+                                                                            </tr>
                                                                         </thead>
                                                                         <tbody>
+                                                                            {% for role in rolepage_obj %}
                                                                             <tr>
                                                                                 <td>
                                                                                     <p class="checkbx">
-                                                                                        <input type="checkbox" id="c2"
+                                                                                        <input type="checkbox"
+                                                                                            id="role_{{ role.id }}"
                                                                                             name="cb">
                                                                                         <label
-                                                                                            for="c2">Administrator</label>
+                                                                                            for="role_{{ role.id }}">{{role.name}}</label>
                                                                                     </p>
                                                                                 </td>
-                                                                                <td>Full access to all features and
-                                                                                    functionalitites</td>
-                                                                                <td>1</td>
-                                                                                <td><span
-                                                                                        class="activeSpan">Active</span>
-                                                                                </td>
+                                                                                <td>{{ role.description }}</td>
+                                                                                <td>{{ role.profile_set.count }}</td>
+                                                                                <!-- Assuming you have a related users field -->
+                                                                                <!-- <td>
+                                                                                    {% if role.users.is_active %}
+                                                                                        <span class="activeSpan">Active</span>
+                                                                                    {% else %}
+                                                                                        <span class="inactiveSpan">Inactive</span>
+                                                                                    {% endif %}
+                                                                                </td> -->
                                                                             </tr>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <p class="checkbx">
-                                                                                        <input type="checkbox" id="c3"
-                                                                                            name="cb">
-                                                                                        <label for="c3">Manager</label>
-                                                                                    </p>
-                                                                                </td>
-                                                                                <td>Access to specific management
-                                                                                    features</td>
-                                                                                <td>0</td>
-                                                                                <td><span
-                                                                                        class="inactiveSpan">Inactive</span>
-                                                                                </td>
-                                                                            </tr>
+                                                                            {% endfor %}
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
                                                                 <ul class="pagination mt-3 justify-content-end pe-3">
+                                                                    {% if rolepage_obj.has_previous %}
                                                                     <li class="page-item"><a class="page-link"
-                                                                            href="#">Previous</a></li>
-                                                                    <li class="page-item active"><a class="page-link"
-                                                                            href="#">1</a></li>
+                                                                            href="?page=1">Previous</a></li>
+                                                                    {% endif %}
+                                                                    {% for i in rolepage_obj.paginator.page_range %}
+                                                                    <li
+                                                                        class="page-item {% if rolepage_obj.number == i %}active{% endif %}">
+                                                                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                                                                    </li>
+                                                                    {% endfor %}
+                                                                    {% if rolepage_obj.has_next %}
                                                                     <li class="page-item"><a class="page-link"
-                                                                            href="#">2</a></li>
-                                                                    <li class="page-item"><a class="page-link"
-                                                                            href="#">3</a></li>
-                                                                    <li class="page-item"><a class="page-link"
-                                                                            href="#">Next</a></li>
+                                                                            href="?page={{ rolepage_obj.paginator.num_pages }}">Next</a>
+                                                                    </li>
+                                                                    {% endif %}
                                                                 </ul>
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -494,32 +519,47 @@
                                     <div class="modal-content">
                                         <div class="modal-body p-3">
                                             <h2 class="sub-heading">Create New User</h2>
-                                            <form action="">
+                                            <form action="" method="post" id="usercreateForm">
+                                                {%csrf_token%}
                                                 <div class="row">
                                                     <div class="col-12 mt-3">
-                                                        <label for="" class="allLbl">Name</label>
-                                                        <input type="text" class="allinput w-100">
+                                                        <label for="username" class="allLbl">Name</label>
+                                                        <input type="text" required name="username" id="username"
+                                                            class="allinput w-100">
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-12 mt-3">
-                                                        <label for="" class="allLbl">Email</label>
-                                                        <input type="email" class="allinput w-100">
+                                                        <label for="useremail" class="allLbl">Email</label>
+                                                        <input type="email" required name="useremail" id="useremail"
+                                                            class="allinput w-100">
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-12 mt-3">
-                                                        <label for="" class="allLbl">Role</label>
-                                                        <select name="" id="" class="allinput w-100">
-                                                            <option value="administrator">Administrator</option>
+                                                        <label for="userpassword" class="allLbl">Password</label>
+                                                        <input type="password" id="userpassword" required name="userpassword" 
+                                                            class="allinput w-100">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 mt-3">
+                                                        <label for="userrole" class="allLbl">Role</label>
+                                                        <select name="userrole" required id="userrole"
+                                                            class="allinput w-100">
+                                                            {% for role in roles%}
+                                                            <option value="{{role.id}}">{{role.name}}</option>
+                                                            {% endfor %}
                                                         </select>
                                                     </div>
                                                 </div>
+                                                <p class="error-text" id="error"></p>
+                                                <p class="success-text" id="success"></p>
                                                 <div class="row">
                                                     <div class="col-12 text-end mt-3">
-                                                        <button class="orange-btn-3">Cancel</button>
-                                                        <button type="button " class="orange-btn"
-                                                            data-bs-dismiss="modal" aria-label="Close">Create</button>
+                                                        <button class="orange-btn-3" aria-label="Close"
+                                                            data-bs-dismiss="modal">Cancel</button>
+                                                        <button type="submit" class="orange-btn">Create</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -547,10 +587,11 @@
                                                 <div class="row">
                                                     <div class="col-12 mt-3">
                                                         <label for="description" class="allLbl">Description</label>
-                                                        <textarea id="description" cols="30" rows="5" class="allinput w-100"></textarea>
+                                                        <textarea id="description" cols="30" rows="5"
+                                                            class="allinput w-100"></textarea>
                                                     </div>
                                                 </div>
-                                            
+
                                                 <!-- Permissions section -->
                                                 <div class="row">
                                                     <div class="col-12">
@@ -655,7 +696,8 @@
                                                         <h3 class="modalsubheading">Report Generation</h3>
                                                         <p class="checkbx checkbx2 mt-2">
                                                             <input type="checkbox" id="generateReports">
-                                                            <label for="generateReports">Generate reports on system activity</label>
+                                                            <label for="generateReports">Generate reports on system
+                                                                activity</label>
                                                         </p>
                                                         <p class="checkbx checkbx2 mt-2">
                                                             <input type="checkbox" id="viewStats">
@@ -663,7 +705,8 @@
                                                         </p>
                                                         <p class="checkbx checkbx2 mt-2">
                                                             <input type="checkbox" id="exportReports">
-                                                            <label for="exportReports">Export reports in various formats</label>
+                                                            <label for="exportReports">Export reports in various
+                                                                formats</label>
                                                         </p>
                                                     </div>
                                                     <div class="col-md-6">
@@ -689,38 +732,43 @@
                                                         <h3 class="modalsubheading">System Configuration</h3>
                                                         <p class="checkbx checkbx2 mt-2">
                                                             <input type="checkbox" id="configureSystem">
-                                                            <label for="configureSystem">Configure system settings</label>
+                                                            <label for="configureSystem">Configure system
+                                                                settings</label>
                                                         </p>
                                                         <p class="checkbx checkbx2 mt-2">
                                                             <input type="checkbox" id="customizeSystem">
-                                                            <label for="customizeSystem">Customize system preferences</label>
+                                                            <label for="customizeSystem">Customize system
+                                                                preferences</label>
                                                         </p>
                                                         <p class="checkbx checkbx2 mt-2">
                                                             <input type="checkbox" id="manageIntegrations">
-                                                            <label for="manageIntegrations">Manage system integrations</label>
+                                                            <label for="manageIntegrations">Manage system
+                                                                integrations</label>
                                                         </p>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <h3 class="modalsubheading">Customer Support</h3>
                                                         <p class="checkbx checkbx2 mt-2">
                                                             <input type="checkbox" id="respondInquiries">
-                                                            <label for="respondInquiries">Respond to user inquiries</label>
+                                                            <label for="respondInquiries">Respond to user
+                                                                inquiries</label>
                                                         </p>
                                                     </div>
-                                                    <p class="error-text" id="error" ></p>
-                                                    <p class="success-text" id="success" ></p>
+                                                    <p class="error-text" id="error"></p>
+                                                    <p class="success-text" id="success"></p>
 
                                                 </div>
-                                            
+
                                                 <!-- Form Buttons -->
                                                 <div class="row">
                                                     <div class="col-12 text-end mt-3">
-                                                        <button class="orange-btn-3" type="button">Cancel</button>
-                                                        <button type="submit"  class="orange-btn">Create</button>
+                                                        <button class="orange-btn-3" data-bs-dismiss="modal"
+                                                            aria-label="Close" type="button">Cancel</button>
+                                                        <button type="submit" class="orange-btn">Create</button>
                                                     </div>
                                                 </div>
                                             </form>
-                                            
+
                                         </div>
                                     </div>
                                 </div>

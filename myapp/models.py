@@ -1,11 +1,13 @@
 from django.db import models
+from django.contrib.auth.models import User
 import json
 
 class Role(models.Model):
-    name = models.CharField(max_length=255)  # Stores the name of the role
-    description = models.TextField()  # Role description
-    permissions = models.JSONField(default=dict)  # Store permissions as a JSON string
+    name = models.CharField(max_length=255)  
+    description = models.TextField()  
+    permissions = models.JSONField(default=dict) 
 
+    user = models.ManyToManyField(User,through='Profile')
     def __str__(self):
         return self.name
 
@@ -16,3 +18,11 @@ class Role(models.Model):
     # Method to get permissions as a dictionary
     def get_permissions(self):
         return json.loads(self.permissions)
+    
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    role = models.ForeignKey(Role, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return f'{self.user.username} Profile'

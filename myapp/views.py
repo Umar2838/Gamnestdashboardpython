@@ -2,9 +2,11 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 import json
 from django.http import JsonResponse
-from django.contrib.auth import authenticate,login as django_login
+from django.contrib.auth import authenticate,login as django_login,logout
 from django.contrib.auth.models import User
-from .models import Role
+from .models import Role,Profile
+from django.core.paginator import Paginator
+
 
 def login(request):
     if request.method == 'POST':
@@ -97,37 +99,79 @@ def statistics(request):
     else:
         username = None    
     return render(request,'statistics.html',{'username':username})
+# views.py
+
 @login_required
 def users(request):
     username = request.user.username
+
     if request.method == 'POST':
         try:
-            data = json.loads(request.body)  # Parse the incoming JSON data
+            data = json.loads(request.body)
 
-            name = data.get('roleName')
-            description = data.get('description')
-            permissions = data.get('permissions')  # Permissions should be in JSON format
+            # Check if it's a role creation request
+            if 'roleName' in data:
+                # Handle Role Creation
+                name = data.get('roleName')
+                description = data.get('description')
+                permissions = data.get('permissions')
 
-            # Check if all required fields are present
-            if not name or not description or not permissions:
-                return JsonResponse({'error': 'Role name, description, and permissions are required.'}, status=400)
+                if not name or not description or not permissions:
+                    return JsonResponse({'error': 'Role name, description, and permissions are required.'}, status=400)
 
-            # Create a new Role instance
-            role = Role(
-                name=name,
-                description=description,
-                permissions=permissions  # Directly assign permissions here
-            )
-            role.save()  # Save the role to the database
+                role = Role(name=name, description=description, permissions=permissions)
+                role.save()
 
-            return JsonResponse({'message': 'Role created successfully!', 'role_id': role.id}, status=201)
-        
+                return JsonResponse({'message': 'Role created successfully!', 'role_id': role.id}, status=201)
+
+            # Check if it's a user creation request
+            elif 'newusername' in data:
+                # Handle User Creation
+                username = data.get('newusername')
+                email = data.get('useremail')
+                password = data.get('userpassword')
+                role_id = data.get('userrole')
+
+                if not username or not email or not role_id:
+                    return JsonResponse({'error': 'All fields are required for user creation.'}, status=400)
+
+                # Check if email already exists
+                if User.objects.filter(email=email).exists():
+                    return JsonResponse({'error': 'Email already exists.'}, status=400)
+
+                # Create the user
+                user = User.objects.create_user(username=username, email=email , password=password)
+                user.save()
+
+                # Get the role
+                try:
+                    role = Role.objects.get(id=role_id)
+                except Role.DoesNotExist:
+                    return JsonResponse({'error': 'Role not found.'}, status=400)
+
+                # Create the profile and assign the role
+                profile = Profile.objects.create(user=user, role=role)
+
+                return JsonResponse({'message': 'User created successfully!'}, status=201)
+            else:
+                return JsonResponse({'error': 'Invalid data for creating role or user.'}, status=400)
+
         except json.JSONDecodeError:
             return JsonResponse({"error": "Invalid JSON data"}, status=400)
         except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)  # Catch any unexpected errors
+            return JsonResponse({'error': str(e)}, status=500)
 
-    return render(request, 'users.html', {'username': username})
+    roles = Role.objects.all()
+    user_list = User.objects.select_related('profile__role').all()
+    user_paginator = Paginator(user_list, 5)
+    user_page_number = request.GET.get('page',1)
+    userpage_obj = user_paginator.get_page(user_page_number)
+
+    role_paginator = Paginator(roles, 5)
+    role_page_number = request.GET.get('page',1)
+    rolepage_obj = role_paginator.get_page(role_page_number)
+
+    return render(request, 'users.html', {'username': username, 'roles': roles, 'page_obj': userpage_obj,'rolepage_obj':rolepage_obj})
 
 @login_required
 def support(request):
@@ -183,4 +227,9 @@ def settings(request):
     # Render the settings page with user info
     return render(request, 'settings.html', {'username': username, 'email': email, 'errormessage': errormessage, 'successmessage': successmessage})
 
-
+@login_required
+def logoutbtn(request):
+    if request.method == 'POST':
+        logout(request)
+        return JsonResponse({'message': 'Successfully logged out.'}, status=200)
+    return JsonResponse({'error': 'Invalid request method.'}, status=400)
