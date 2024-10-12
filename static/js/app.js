@@ -37,40 +37,47 @@ const loginbtn = document.getElementById("loginbtn");
 const error = document.getElementById("error")
 const success = document.getElementById("success");
 
-loginbtn && loginbtn.addEventListener("submit",(e)=>{
+loginbtn && loginbtn.addEventListener("submit", (e) => {
   e.preventDefault();
+
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
-  if(!username || !password){
-     error.textContent = "Username or Password Required"
-  }
-  const data = {username: username, password: password}
 
-  fetch(' /',{
-    method:'POST',
+  if (!username || !password) {
+    error.textContent = "Username or Password Required";
+    return;
+  }
+
+  const data = { username: username, password: password };
+
+  fetch('/', {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'X-CSRFToken':csrftoken
+      'X-CSRFToken': csrftoken  
     },
     body: JSON.stringify(data)
   })
-  .then(response => response.json())
-  .then(data=>{
-    if(data.success){
-      window.location.href = '/index'
-    }
-    else{
-      error.textContent = data.message || "Invalid credentials";
-    }
-  })
-  .catch(error => {
-    console.error('Error',error);
-    error.textContent = "An error occurred. Please try again.";
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        
+        localStorage.setItem('role', data.role);  
+        localStorage.setItem('permissions', JSON.stringify(data.permissions));  
 
-  })
+        
 
+        window.location.href = '/index';
+      } else {
+        error.textContent = data.message || "Invalid credentials";
+      }
+    })
+    .catch(error => {
+      console.error('Error', error);
+      error.textContent = "An error occurred. Please try again.";
+    });
+});
 
-})
 // =======================================Login functionality==================================//
 
 //========================================Setting information changing functionality==========================//
@@ -318,6 +325,56 @@ function toggleSideNav() {
 
 // ============================== Dashboard Permission check ============================================//
 
+// ============================== Support ticket show ============================================//
+// Call your API to fetch the tickets
+fetch('http://localhost:8001/api/tickets/')  // Use the appropriate URL for your support ticket API
+.then(response => response.json())
+.then(data => {
+    console.log(data);  // Verify the data structure in the browser's console
+
+    // Select the UL element where we want to add the tickets
+    const ticketList = document.getElementById('ticket-list');
+
+    // Iterate through the ticket data
+    data.forEach(ticket => {
+        // Create an LI element for each ticket
+        const ticketItem = document.createElement('li');
+        ticketItem.classList.add('border-box', 'mt-3');  // Add classes
+
+        // Create the inner HTML for each ticket
+        ticketItem.innerHTML = `
+            <div class="d-flex align-items-start justify-content-between">
+                <div>
+                    <div class="d-flex align-items-center">
+                        <span class="ticketIcon"></span>
+                        <h3 class="ticketHeading">Ticket# ${ticket.id}</h3>
+                        <span class="ticketBadge">High Priority</span> 
+                    </div>
+                    <h4 class="ticketQuestion">${ticket.title}</h4>
+                    <p class="ticketPara">${ticket.description
+                      || 'No additional details provided.'}</p>  <!-- Assuming 'details' is in the API response -->
+                </div>
+                <span class="ticketPosting">Posted at ${new Date(ticket.created_at).toLocaleTimeString()}</span>  <!-- Formatting date -->
+            </div>
+            <div class="d-flex align-items-center justify-content-between borderBtm">
+                <div class="d-flex align-items-center">
+                    <img src="${ticket.profile_picture || '{% static "images/people.png" %}'}" alt=""
+                         class="ticketImg">
+                    <span class="ticketUserName">${ticket.user_name}</span>
+                </div>
+                <a href="/support-ticket-detail/${ticket.id}" class="ticketLink">Open Ticket</a>
+            </div>
+        `;
+
+        // Append the ticket item to the list
+        ticketList.appendChild(ticketItem);
+    });
+})
+.catch(error => {
+    console.error('Error fetching tickets:', error);
+});
+
+// ============================== Support ticket show ============================================//
 
 // ============================== Navbar Toggle ============================================//
 // ============================== ChartJS ============================================//

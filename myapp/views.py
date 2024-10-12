@@ -21,12 +21,25 @@ def login(request):
             if user is not None:
                 # Log in the user
                 django_login(request, user)
-                return JsonResponse({'success': True, 'message': 'Login successful'})
+
+                # Retrieve the user's role and permissions
+                profile = Profile.objects.get(user=user)
+                role = profile.role
+                permissions = role.get_permissions() if role else {}
+                # Respond with success, including the permissions and role information
+                return JsonResponse({
+                    'success': True, 
+                    'message': 'Login successful', 
+                    'permissions': permissions, 
+                    'role': role.name if role else 'No role'
+                })
+            
             else:
                 return JsonResponse({'success': False, 'message': 'Invalid credentials'})
         except json.JSONDecodeError:
             return JsonResponse({'success': False, 'message': 'Invalid JSON format'})
     return render(request, 'login.html')
+
 
 @login_required
 def index(request):

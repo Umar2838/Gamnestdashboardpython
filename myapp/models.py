@@ -17,7 +17,7 @@ class Role(models.Model):
 
     # Method to get permissions as a dictionary
     def get_permissions(self):
-        return json.loads(self.permissions)
+        return self.permissions
     
 
 class Profile(models.Model):
