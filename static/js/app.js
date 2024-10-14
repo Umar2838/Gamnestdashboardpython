@@ -203,10 +203,10 @@ roleForm && roleForm.addEventListener('submit', function(event) {
 }).then(response => response.json())
   .then(data => {
       console.log('Success:', data);
-      error.textContent = data.error
       success.textContent = "Role created successfully"
     }).catch((err) => {
       console.error('Error:', err);
+      error.textContent = err
   });
 });
 
@@ -223,12 +223,12 @@ usercreateForm && usercreateForm.addEventListener("submit", (e) => {
     const userpassword = document.getElementById("userpassword").value;
     const userrole = document.getElementById("userrole").value;
 
-    const errorElement = document.getElementById("error");
-    const successElement = document.getElementById("success");
+    const error = document.getElementById("error");
+    const success = document.getElementById("success");
 
     // Clear previous messages
-    errorElement.textContent = "";
-    successElement.textContent = "";
+    error.textContent = "";
+    success.textContent = "";
 
     if (!newusername || !useremail || !userpassword || !userrole) {
         errorElement.textContent = "All fields are required.";
@@ -405,7 +405,7 @@ console.log(permissions)
 // ======================================Venue Creation=================================================//
 const venueForm = document.getElementById("venueForm")
 
-venueForm.addEventListener("submit", (e) => {
+venueForm && venueForm.addEventListener("submit", (e) => {
   e.preventDefault()
   const name = document.getElementById("name").value
   const phone = document.getElementById("phone").value
@@ -421,7 +421,7 @@ const VenueData = {
   location,
   hours,
 }
-fetch('new_venue',{
+fetch('venues',{
   method: 'POST',
   headers:{
     'Content-Type': 'application/json',
@@ -432,14 +432,60 @@ fetch('new_venue',{
 }).then(response => response.json())
 .then(data => {
     console.log('Success:', data);
-    error.textContent = data.error
-    success.textContent = "Venue created successfully"
+      success.textContent = "Venue created successfully"
+  
   }).catch((err) => {
-    console.error('Error:', err);
+    console.error('Error:', err); 
+    error.textContent = err
+
 });
 })
 
 // ======================================Venue Creation=================================================//
+
+// =========================================Ticket Creation=============================================//
+const ticketForm = document.getElementById('ticketForm')
+
+ticketForm && ticketForm.addEventListener('submit', function(e) {
+e.preventDefault()  
+  const name = document.getElementById('ticketName').value;
+  const description = document.getElementById('ticketDescription').value;
+  const type = document.getElementById('ticketType').value;
+  const duration = document.getElementById('ticketDuration').value;
+  const price = document.getElementById('ticketPrice').value;
+
+  const ticketData = {
+    name,
+    description,
+    type,
+    duration,
+    price
+  }
+  fetch('tickets',{
+    method: 'POST',
+    headers:{
+      'Content-Type': 'application/json',
+      'X-CSRFTOKEN':csrftoken
+    },
+    body:JSON.stringify(ticketData)
+  
+  }).then(response => response.json())
+  .then(data => {
+      console.log('Success:', data);
+        success.textContent = "Ticket created successfully"
+    
+    }).catch((err) => {
+      console.error('Error:', err); 
+      error.textContent = err
+  
+  });
+
+});
+
+
+// =========================================Ticket Creation=============================================//
+
+
 
 // ============================== Support ticket show ============================================//
 fetch('http://localhost:8001/api/tickets/') 
@@ -485,6 +531,49 @@ fetch('http://localhost:8001/api/tickets/')
 });
 
 // ============================== Support ticket show ============================================//
+
+// ========================================Headset Creation=======================================//
+const headetForm = document.getElementById('vrHeadsetForm')
+headetForm && headetForm.addEventListener('submit', function(event) {
+  event.preventDefault();
+  
+  const vrName = document.getElementById('vrName').value;
+  const modelNumber = document.getElementById('modelNumber').value;
+  const serialNumber = document.getElementById('serialNumber').value;
+  const barcodeNumber = document.getElementById('barcodeNumber').value;
+  const assignedVenue = document.getElementById('assignedVenue').value;
+
+  const headsetData = {
+    vrName,
+    modelNumber,
+    serialNumber,
+    barcodeNumber,
+    assignedVenue
+  }
+  fetch('newheadset',{
+    method:'POST',
+    headers:{
+      'Content-Type': 'application/json',
+      'X-CSRFTOKEN':csrftoken
+    },
+    body:{
+         data: JSON.stringify(headsetData)
+    }
+  }).then(response => response.json())
+    .then(data => {
+            success.textContent = data.message;
+            console.log(data) 
+    })
+    .catch((err) => {
+        console.error('Error:', err);
+        error.textContent = 'An error occurred while creating the user.';
+    });
+
+});
+
+
+// ========================================Headset Creation=======================================//
+
 
 // ============================== Navbar Toggle ============================================//
 // ============================== ChartJS ============================================//

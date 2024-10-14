@@ -4,7 +4,7 @@ import json
 from django.http import JsonResponse
 from django.contrib.auth import authenticate,login as django_login,logout
 from django.contrib.auth.models import User
-from .models import Role,Profile,Venues
+from .models import Role,Profile,Venues,Tickets,Headset
 from django.core.paginator import Paginator
 
 
@@ -53,13 +53,6 @@ def index(request):
 def venues(request):
     if request.user.is_authenticated:
         username = request.user.username
-    else:
-        username = None    
-    return render(request,'venues.html',{'username':username})
-@login_required
-def new_venue(request):
-    if request.user.is_authenticated:
-        username = request.user.username
         if request.method == 'POST':
             try:
                 venueData = json.loads(request.body)
@@ -79,6 +72,16 @@ def new_venue(request):
                 return JsonResponse({'message': 'Venue created successfully!', 'role_id': venue.id} ,status=200)
             except Venues.DoesNotExist:
                     return JsonResponse({'error': 'Venue not found.'}, status=400)
+            
+        venues = Venues.objects.all().order_by('id')
+        venue_paginator = Paginator(venues, 10)
+        venue_page_number = request.GET.get('page',1)
+        venuepage_obj = venue_paginator.get_page(venue_page_number)   
+    return render(request,'venues.html',{'username':username,'venues':venues,'venuepage_obj':venuepage_obj})
+@login_required
+def new_venue(request):
+    if request.user.is_authenticated:
+        username = request.user.username
     return render(request,'new-venue.html',{'username':username})
 @login_required
 def edit_venue(request):
@@ -98,23 +101,82 @@ def games(request):
 def tickets(request):
     if request.user.is_authenticated:
         username = request.user.username
-    else:
-        username = None    
-    return render(request,'tickets.html',{'username':username})
+        if request.method == 'POST':
+            try:
+                ticketData = json.loads(request.body)
+                # Handle Role Creation
+                name = ticketData.get('name')
+                description = ticketData.get('description')
+                type = ticketData.get('type')
+                duration = ticketData.get('duration')
+                price = ticketData.get('price')
+
+                if not name or not description or not type or not duration or not price:
+                    return JsonResponse({'error': 'Ticket name, description,type,duration and price are required.'}, status=400)
+
+                ticket = Tickets(name=name, description = description, type = type, duration = duration, price = price)
+                ticket.save()
+
+                return JsonResponse({'message': 'Tickets created successfully!', 'ticket_id': ticket.id} ,status=200)
+            except Tickets.DoesNotExist:
+                    return JsonResponse({'error': 'Tickets not found.'}, status=400)
+            
+        tickets = Tickets.objects.all().order_by('id')
+        tickets_paginator = Paginator(tickets, 10)
+        tickets_page_number = request.GET.get('page',1)
+        ticketspage_obj = tickets_paginator.get_page(tickets_page_number)   
+    return render(request,'tickets.html',{'username':username,'tickets':tickets,'ticketspage_obj':ticketspage_obj})
 @login_required
 def units(request):
     if request.user.is_authenticated:
-        username = request.user.username
-    else:
-        username = None    
+        username = request.user.username  
     return render(request,'units.html',{'username':username})
+
+from django.shortcuts import render
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from .models import Headset, Venues  # Assuming Headset and Venues models are defined
+import json
+
 @login_required
-def new_headset(request):
-    if request.user.is_authenticated:
-        username = request.user.username
-    else:
-        username = None    
-    return render(request,'new-headset.html',{'username':username})
+def newheadset(request):
+    username = request.user.username
+    headsets = None 
+
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            
+            name = data.get('name')
+            modelNumber = data.get('modelNumber')
+            serialNumber = data.get('serialNumber')
+            barcodeNumber = data.get('barcodeNumber')
+            assignedVenueId = data.get('assignedVenue')  # Get venue ID from data
+
+                # Ensure all fields are filled
+            if not name or not modelNumber or not serialNumber or not barcodeNumber or not assignedVenueId:
+                return JsonResponse({'error': 'Headset name, modelNumber, serialNumber, barcodeNumber, and assignedVenue are required.'}, status=400)
+
+                # Fetch assigned venue from the database
+            try:
+                    assignedVenue = Venues.objects.get(id=assignedVenueId)
+            except Venues.DoesNotExist:
+                return JsonResponse({'error': 'Assigned Venue not found.'}, status=404)
+
+                # Create new Headset
+            headsets = Headset(name=name, modelNumber=modelNumber, serialNumber=serialNumber, barcodeNumber=barcodeNumber, assignedVenue=assignedVenue)
+            headsets.save()
+
+            return JsonResponse({'message': 'Headset created successfully!', 'headset_id': headsets.id}, status=201)
+        
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON data.'}, status=400)
+
+    # If the request method is GET, or after handling POST, we fetch venues for the dropdown
+    venues = Venues.objects.all()
+
+    return render(request, 'new-headset.html', {'username': username, 'headsets': headsets, 'venues': venues})
+
 @login_required
 def new_tablet(request):
     if request.user.is_authenticated:
@@ -191,12 +253,12 @@ def users(request):
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
 
-    roles = Role.objects.all().order_by('id')
     user_list = User.objects.select_related('profile__role').all().order_by('id')
     user_paginator = Paginator(user_list, 10)
     user_page_number = request.GET.get('page',1)
     userpage_obj = user_paginator.get_page(user_page_number)
 
+    roles = Role.objects.all().order_by('id')
     role_paginator = Paginator(roles, 10)
     role_page_number = request.GET.get('page',1)
     rolepage_obj = role_paginator.get_page(role_page_number)

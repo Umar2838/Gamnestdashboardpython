@@ -276,49 +276,51 @@
                                         <div class="col-12">
                                             <h2 class="sub-heading marginTopAll">VR Headset Information</h2>
                                             <div class="border-box mt-3">
-                                                <form action="">
+                                                <form id="vrHeadsetForm" action="" method="post">
+                                                    {%csrf_token%}
                                                     <div class="row">
                                                         <div class="col-lg-4 mt-3">
-                                                            <label for="" class="allLbl">Name</label>
-                                                            <input type="text" class="allinput w-100">
+                                                            <label for="vrName" class="allLbl">Name</label>
+                                                            <input type="text" id="vrName" class="allinput w-100">
                                                         </div>
                                                         <div class="col-lg-4 mt-3">
-                                                            <label for="" class="allLbl">Model Number</label>
-                                                            <input type="text" class="allinput w-100">
+                                                            <label for="modelNumber" class="allLbl">Model Number</label>
+                                                            <input type="text" id="modelNumber" class="allinput w-100">
                                                         </div>
                                                         <div class="col-lg-4 mt-3">
-                                                            <label for="" class="allLbl">Serial Number</label>
-                                                            <input type="text" class="allinput w-100">
+                                                            <label for="serialNumber" class="allLbl">Serial Number</label>
+                                                            <input type="text" id="serialNumber" class="allinput w-100">
                                                         </div>
                                                         <div class="col-12 mt-3">
-                                                            <label for="" class="allLbl">Bar code Number</label>
-                                                            <input type="number" class="allinput w-100">
+                                                            <label for="barcodeNumber" class="allLbl">Bar code Number</label>
+                                                            <input type="number" id="barcodeNumber" class="allinput w-100">
                                                         </div>
                                                         <div class="col-lg-4 mt-3">
-                                                            <label for="" class="allLbl">Assigned Venue</label>
-                                                            <input type="text" class="allinput w-100">
+                                                            <label for="assignedVenue" class="allLbl">Assigned Venue</label>
+                        <select id="assignedVenue" class="allinput w-100" name="assigned_venue">
+                            <option value="">Select Venue</option>
+                            {% for venue in venues %}
+                                <option value="{{ venue.id }}">{{ venue.name }}</option>
+                            {% endfor %}
+                        </select>
                                                         </div>
-                                                       
                                                     </div>
-                                                    <a href="#"> <button class="mt-4 orange-btn" data-bs-toggle="modal"
-                                                        data-bs-target="#newTicket" aria-label="New Ticket">
-                                                        <i class="fas fa-plus me-2"></i>Add Headset
-                                                    </button>
-                                                </a>
+                                                    <a href="#">
+                                                        <button type="submit" class="mt-4 orange-btn" >
+                                                            <i class="fas fa-plus me-2"></i>Add Headset
+                                                        </button>
+                                                    </a>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
+                                    
                                    
                                 </div>
                             </section>
 
                             <!--footer start here-->
 
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

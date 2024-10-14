@@ -29,10 +29,32 @@ class Profile(models.Model):
     
 class Venues(models.Model):
     name = models.CharField(max_length=255)
-    phone = models.IntegerField(max_length=15)  
+    phone = models.IntegerField()  
     email = models.EmailField(max_length=254 , unique=True)
     location = models.TextField(max_length=255)
     hours = models.TextField(max_length=255)
 
     def __str__(self):
         return self.name
+    
+class Tickets(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField(max_length=255)
+    type = models.CharField(max_length=254)
+    duration = models.CharField(max_length=20)
+    price = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name    
+    
+class Headset(models.Model):
+    name = models.CharField(max_length=245)
+    modelNo = models.CharField(max_length=245)
+    serialNo = models.CharField(max_length=245)
+    barcodeNo = models.IntegerField()
+    assignedVenue = models.CharField(max_length=20)
+    venue = models.ForeignKey(Venues, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+       

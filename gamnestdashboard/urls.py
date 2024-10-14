@@ -1,7 +1,7 @@
 
 from django.contrib import admin
 from django.urls import path
-from myapp.views import login,index,venues,new_venue,edit_venue,games,tickets,units,new_headset,new_tablet,statistics,users,support,supportTicketDetail,settings,logoutbtn
+from myapp.views import login,index,venues,new_venue,edit_venue,games,tickets,units,newheadset,new_tablet,statistics,users,support,supportTicketDetail,settings,logoutbtn
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -13,7 +13,7 @@ urlpatterns = [
     path('games',games,name="games"),
     path('tickets',tickets,name="tickets"),
     path('units',units,name="units"),
-    path('new_headset',new_headset,name="new_headset"),
+    path('newheadset',newheadset,name="newheadset"),
     path('new_tablet',new_tablet,name="new_tablet"),
     path('statistics',statistics,name="statistics"),
     path('users',users,name="users"),
