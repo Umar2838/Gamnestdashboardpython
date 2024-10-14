@@ -175,7 +175,7 @@
                                     </a>
                                 </li>
 
-                                <li>
+                                <li id="staticsSection" >
                                     <a href="statistics">
                                         <svg class="svgNavIcon2" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -189,7 +189,7 @@
                                 </li>
 
 
-                                <li>
+                                 <li id="UserRoleSection" >
                                     <a href="users">
                                         <svg class="svgNavIcon" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -200,7 +200,7 @@
                                 </li>
 
 
-                                <li>
+                              <li id="supportSection" >
                                     <a href="support">
                                         <svg class="svgNavIcon" viewBox="0 0 25 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -308,11 +308,11 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <div class="offset-md-2 col-md-6 mt-md-0 mt-3 text-end">
+                                        <div id="addVenues"  class="offset-md-2 col-md-6 mt-md-0 mt-3 text-end">
                                             <a href="new_venue" class="orange-btn"><i
                                                     class="fas fa-plus me-2"></i>New Venue</a>
                                         </div>
-                                        <div class="col mt-3">
+                                        <div class="col actiondiv">
                                             <select class="allSelect2">
                                                 <option value="action">Action</option>
                                             </select>
@@ -340,8 +340,7 @@
                                                             <th>Hours <i class="fas fa-angle-down ms-2"></i></th>
                                                         </thead>
                                                         <tbody>
-                                                            <tr onclick="window.location.href='edit_venue'"
-                                                                style="cursor: pointer;">
+                                                            <tr id="editVenue" onclick="window.location.href='edit_venue'" style="cursor: pointer;">
                                                                 <td>
                                                                     <p class="checkbx">
                                                                         <input type="checkbox" id="c2" name="cb">
@@ -353,8 +352,7 @@
                                                                 <td><span class="activeSpan">Active</span></td>
                                                                 <td>Mon-Sun, 10:00 AM - 10:00 PM</td>
                                                             </tr>
-                                                            <tr onclick="window.location.href='edit_venue'"
-                                                                style="cursor: pointer;">
+                                                            <tr  onclick="window.location.href='edit_venue'" style="cursor: pointer;" >
                                                                 <td>
                                                                     <p class="checkbx">
                                                                         <input type="checkbox" id="c3" name="cb">

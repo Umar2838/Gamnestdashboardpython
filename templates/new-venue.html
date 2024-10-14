@@ -175,7 +175,7 @@
                                     </a>
                                 </li>
 
-                                <li>
+                                <li id="staticsSection" >
                                     <a href="statistics">
                                         <svg class="svgNavIcon2" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -189,7 +189,7 @@
                                 </li>
 
 
-                                <li>
+                                 <li id="UserRoleSection" >
                                     <a href="users">
                                         <svg class="svgNavIcon" viewBox="0 0 24 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -200,7 +200,7 @@
                                 </li>
 
 
-                                <li>
+                              <li id="supportSection" >
                                     <a href="support">
                                         <svg class="svgNavIcon" viewBox="0 0 25 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -259,7 +259,7 @@
                                             <span class="sub-heading">Add New Venue</span>
                                         </div>
                                         <div class="col-md-6 text-end">
-                                            <a href="edit_venue" class="orange-btn">Edit</a>
+                                            <a id="editVenuebtn" style="display: none;" href="edit_venue" class="orange-btn">Edit</a>
                                             <button type="button" class="drpBtn" data-bs-toggle="dropdown"
                                                 aria-haspopup="true" aria-expanded="false">
                                                 <i class="fa fa-ellipsis-v"></i>
@@ -273,43 +273,50 @@
                                         <div class="col-12">
                                             <h2 class="sub-heading marginTopAll">Venue Information</h2>
                                             <div class="border-box mt-3">
-                                                <form action="">
+                                                <form id="venueForm" action="" method="post">
+                                                    {%csrf_token%}
                                                     <div class="row">
                                                         <div class="col-lg-4 mt-3">
                                                             <label for="" class="allLbl">Name</label>
-                                                            <input type="text" class="allinput w-100">
+                                                            <input type="text" name="name" id="name" class="allinput w-100">
                                                         </div>
                                                         <div class="col-lg-4 mt-3">
                                                             <label for="" class="allLbl">Phone</label>
-                                                            <input type="number" class="allinput w-100">
+                                                            <input type="number" name="phone" id="phone" class="allinput w-100">
                                                         </div>
                                                         <div class="col-lg-4 mt-3">
                                                             <label for="" class="allLbl">Email</label>
-                                                            <input type="email" class="allinput w-100">
+                                                            <input type="email" name="email" id="email" class="allinput w-100">
                                                         </div>
                                                         <div class="col-12 mt-3">
                                                             <label for="" class="allLbl">Location</label>
-                                                            <input type="email" class="allinput w-100">
+                                                            <input type="text" name="location" id="location" class="allinput w-100">
                                                         </div>
                                                         <div class="col-lg-4 mt-3">
                                                             <label for="" class="allLbl">Hours</label>
-                                                            <input type="text" class="allinput w-100">
+                                                            <input type="text" name="hours" id="hours" class="allinput w-100">
                                                         </div>
                                                         <div class="col-lg-4 mt-3">
                                                             <label for="" class="allLbl">Special Events</label>
-                                                            <input type="text" class="allinput w-100">
+                                                            <input type="text" name="specialEvents" id="specialEvents" class="allinput w-100">
                                                         </div>
                                                         <div class="col-12 mt-3">
                                                             <label for="" class="allLbl">Location</label>
-                                                            <textarea name="" id="" cols="30" rows="10"
+                                                            <textarea  cols="30" rows="10"
                                                                 class="allinput w-100"></textarea>
+                                                        </div>
+                                                        <div class="text-center mt-5">
+
+                                                            <button style type="submit" class="orange-btn" >
+                                                                Add Venue
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div id="addGame" class="row">
                                         <div class="col-12 marginTopAll">
                                             <h2 class="sub-heading">Game Information</h2>
                                             <div class="border-box mt-3 px-0">
@@ -337,7 +344,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div id="addTicketInfo" class="row">
                                         <div class="col-12 marginTopAll">
                                             <h2 class="sub-heading">Ticket Information</h2>
                                             <div class="border-box mt-3 px-0">

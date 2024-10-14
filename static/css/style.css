@@ -254,6 +254,10 @@ ul {
   padding:10px 0px 0px 10px
 
 }
+.actiondiv{
+  margin-top:20px
+}
+
 /* ================== Fonts Family Start ==================*/
 .fp {
   font-family: 'Poppins', sans-serif;

@@ -4,7 +4,7 @@ import json
 from django.http import JsonResponse
 from django.contrib.auth import authenticate,login as django_login,logout
 from django.contrib.auth.models import User
-from .models import Role,Profile
+from .models import Role,Profile,Venues
 from django.core.paginator import Paginator
 
 
@@ -60,8 +60,25 @@ def venues(request):
 def new_venue(request):
     if request.user.is_authenticated:
         username = request.user.username
-    else:
-        username = None    
+        if request.method == 'POST':
+            try:
+                venueData = json.loads(request.body)
+                # Handle Role Creation
+                name = venueData.get('name')
+                phone = venueData.get('phone')
+                email = venueData.get('email')
+                location = venueData.get('location')
+                hours = venueData.get('hours')
+
+                if not name or not phone or not email or not location or not hours:
+                    return JsonResponse({'error': 'Venue name, phone,emial,loaction and hours are required.'}, status=400)
+
+                venue = Venues(name=name, phone = phone, email = email, location = location , hours = hours)
+                venue.save()
+
+                return JsonResponse({'message': 'Venue created successfully!', 'role_id': venue.id} ,status=200)
+            except Venues.DoesNotExist:
+                    return JsonResponse({'error': 'Venue not found.'}, status=400)
     return render(request,'new-venue.html',{'username':username})
 @login_required
 def edit_venue(request):
@@ -174,13 +191,13 @@ def users(request):
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
 
-    roles = Role.objects.all()
-    user_list = User.objects.select_related('profile__role').all()
-    user_paginator = Paginator(user_list, 5)
+    roles = Role.objects.all().order_by('id')
+    user_list = User.objects.select_related('profile__role').all().order_by('id')
+    user_paginator = Paginator(user_list, 10)
     user_page_number = request.GET.get('page',1)
     userpage_obj = user_paginator.get_page(user_page_number)
 
-    role_paginator = Paginator(roles, 5)
+    role_paginator = Paginator(roles, 10)
     role_page_number = request.GET.get('page',1)
     rolepage_obj = role_paginator.get_page(role_page_number)
 
@@ -193,6 +210,10 @@ def support(request):
     else:
         username = None    
     return render(request,'support.html',{'username':username}) 
+
+@login_required
+def supportTicketDetail(request):
+    return render(request,'support-ticket-details.html')
 
 @login_required
 def settings(request):

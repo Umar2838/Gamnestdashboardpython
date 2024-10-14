@@ -323,25 +323,135 @@ function toggleSideNav() {
 
 
 
+window.onload = function() {
+  permissions = JSON.parse(localStorage.getItem("permissions"))
+console.log(permissions)
+  const addVenues = document.getElementById("addVenues");
+  const editVenue = document.getElementById("editVenue");
+  const editVenuebtn = document.getElementById("editVenuebtn");
+  const addTicketbtn = document.getElementById("addTicket");
+  const addTicket = document.getElementById("addTicketInfo");
+  const addUser = document.getElementById("addUser");
+  const addRole = document.getElementById("addRole");
+  const addGame = document.getElementById("addGame");
+  const UserRoleSection = document.getElementById("userRoleSection");
+  const userSection = document.getElementById("userSection");
+  const roleSection = document.getElementById("roleSection");
+  const supportSection = document.getElementById("supportSection")
+  const staticsSection = document.getElementById("staticsSection")
+  const securitybtn = document.getElementById("securitybtn")
+  const notificationbtn = document.getElementById("notificationbtn")
+  const securitySection = document.getElementById("v-pills-security")
+  const notificationPreference = document.getElementById("v-pills-notification")
+  const actiondiv = document.querySelector(".actiondiv")
+
+  if(permissions.venueManagement.addVenue == false && addVenues){
+    addVenues.style.display = "none"
+    actiondiv.style.marginTop="0px"
+
+  }
+  if(permissions.venueManagement.editVenue == false && editVenue){
+    editVenue.style.cursor = "default"
+    editVenue.removeAttribute("onclick")
+  }
+  if(permissions.ticketManagement.addTickets == false && addTicketbtn){
+    addTicketbtn.style.display = "none"
+    actiondiv.style.marginTop="0px"
+
+  }
+  if(permissions.ticketManagement.addTickets == false && addTicket){
+    addTicket.style.display = "none"
+    actiondiv.style.marginTop="0px"
+
+  }
+  if(permissions.gameManagement.addGame == false && addGame){
+    addGame.style.display = "none"
+  }
+  if(permissions.roleManagement.addRoles == false && addRole){
+    addRole.style.display = "none"
+    actiondiv.classList.remove("actiondiv")
+
+  }
+  if(permissions.userManagement.addUsers == false && addUser){
+    addUser.style.display = "none"
+    actiondiv.classList.remove("actiondiv")
+  }
+  if(permissions.customerSupport.respondInquiries == false && supportSection){
+    supportSection.style.display = "none"
+  }
+  if(permissions.reportGeneration.viewStats == false && staticsSection){
+    staticsSection.style.display = "none"
+  }
+  if(permissions.systemConfiguration.configureSystem == false && securitySection && securitybtn){
+    securitybtn.style.display = "none"
+    securitySection.style.display = "none"
+  }
+  if(permissions.systemConfiguration.customizeSystem == false && notificationbtn && notificationPreference ){
+    notificationbtn.style.display = "none"
+    notificationPreference.style.display = "none"
+  }
+  // if(permissions.userManagement.manageUsers == false && userSection && permissions.roleManagement.manageRoles == false && roleSection){
+  //   UserRoleSection.style.display = "none"
+  // }
+  // if(permissions.userManagement.manageUsers == false && userSection){
+  //   userSection.style.display = "none"
+  // }
+  // if(permissions.roleManagement.manageRoles == false && roleSection){
+  //   roleSection.style.display = "none"
+  // }
+}
+  
 // ============================== Dashboard Permission check ============================================//
+// ======================================Venue Creation=================================================//
+const venueForm = document.getElementById("venueForm")
+
+venueForm.addEventListener("submit", (e) => {
+  e.preventDefault()
+  const name = document.getElementById("name").value
+  const phone = document.getElementById("phone").value
+  const email = document.getElementById("email").value
+  const location = document.getElementById("location").value
+  const hours = document.getElementById("hours").value
+
+const VenueData = {
+
+  name,
+  phone,
+  email,
+  location,
+  hours,
+}
+fetch('new_venue',{
+  method: 'POST',
+  headers:{
+    'Content-Type': 'application/json',
+    'X-CSRFTOKEN':csrftoken
+  },
+  body:JSON.stringify(VenueData)
+
+}).then(response => response.json())
+.then(data => {
+    console.log('Success:', data);
+    error.textContent = data.error
+    success.textContent = "Venue created successfully"
+  }).catch((err) => {
+    console.error('Error:', err);
+});
+})
+
+// ======================================Venue Creation=================================================//
 
 // ============================== Support ticket show ============================================//
-// Call your API to fetch the tickets
-fetch('http://localhost:8001/api/tickets/')  // Use the appropriate URL for your support ticket API
+fetch('http://localhost:8001/api/tickets/') 
 .then(response => response.json())
 .then(data => {
-    console.log(data);  // Verify the data structure in the browser's console
-
-    // Select the UL element where we want to add the tickets
+    console.log(data); 
     const ticketList = document.getElementById('ticket-list');
 
-    // Iterate through the ticket data
     data.forEach(ticket => {
-        // Create an LI element for each ticket
         const ticketItem = document.createElement('li');
-        ticketItem.classList.add('border-box', 'mt-3');  // Add classes
+        ticketItem.classList.add('border-box', 'mt-3'); 
 
-        // Create the inner HTML for each ticket
         ticketItem.innerHTML = `
             <div class="d-flex align-items-start justify-content-between">
                 <div>
