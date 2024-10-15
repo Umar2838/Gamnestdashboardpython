@@ -412,6 +412,7 @@ venueForm && venueForm.addEventListener("submit", (e) => {
   const email = document.getElementById("email").value
   const location = document.getElementById("location").value
   const hours = document.getElementById("hours").value
+  const locationdefine = document.getElementById("locationdefine").value
 
   const VenueData = {
 
@@ -420,6 +421,7 @@ venueForm && venueForm.addEventListener("submit", (e) => {
     email,
     location,
     hours,
+    locationdefine
   }
   fetch('venues', {
     method: 'POST',

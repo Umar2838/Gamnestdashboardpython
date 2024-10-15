@@ -33,6 +33,7 @@ class Venues(models.Model):
     email = models.EmailField(max_length=254 , unique=True)
     location = models.TextField(max_length=255)
     hours = models.TextField(max_length=255)
+    locationdefine = models.TextField(max_length=255 , null=True)
 
     def __str__(self):
         return self.name

@@ -62,11 +62,12 @@ def venues(request):
                 email = venueData.get('email')
                 location = venueData.get('location')
                 hours = venueData.get('hours')
+                locationdefine = venueData.get('locationdefine')
 
-                if not name or not phone or not email or not location or not hours:
+                if not name or not phone or not email or not location or not hours or not locationdefine:
                     return JsonResponse({'error': 'Venue name, phone,emial,loaction and hours are required.'}, status=400)
 
-                venue = Venues(name=name, phone = phone, email = email, location = location , hours = hours)
+                venue = Venues(name=name, phone = phone, email = email, location = location , hours = hours , locationdefine = locationdefine)
                 venue.save()
 
                 return JsonResponse({'message': 'Venue created successfully!', 'role_id': venue.id} ,status=200)
@@ -317,34 +318,10 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt  # Optional if CSRF token isn't needed
 import json
 
-@login_required
+
 def supportTicketDetail(request):
-    # Initialize data as an empty dictionary or None
-    ticketData = {}
-
-    if request.method == 'POST':
-        try:
-
-            data = json.loads(request.body)
-            print(data[id])
-            ticketData = {
-                'id': data.id,
-                'title': data.title,
-                'description': data.description,
-                'created_at': data.created_at,
-                'useremail': data.useremail,
-                # 'priority': ticket.priority,  # Assuming your model has a priority field
-                # 'status': ticket.status,  # Assuming your model has a status field
-                # 'body': ticket.body
-            }
-            print(ticketData)
-            return JsonResponse({'message': 'User created successfully!'}, status=201)
-        except json.JSONDecodeError: 
-            return JsonResponse({'message': 'Something went wrong'}, status=400)
-
-    return render(request, 'support-ticket-detail.html', {'data': ticketData})
-
-
+    
+    return render(request, 'support-ticket-detail.html')
 
 @login_required
 def settings(request):

@@ -261,23 +261,23 @@
                                                     <span class="sub-heading">Ticket</span>
                                                 </div>
                                                 <div class="col-12 mt-3">
-                                                    <div class="border-box">
+                                                    <div id="currentTicket" class="border-box">
                                                         <div class="d-flex align-items-start justify-content-between">
                                                             <div class="d-flex align-items-center">
                                                                 <span class="ticketIcon"></span>
                                                                 <h3 class="ticketHeading">Ticket# {{data.id}}</h3>  
                                                             </div>
-                                                            <span class="ticketPosting w-auto">Posted at {{ data.created_at|date:"H:i A" }}</span> 
+                                                            <span class="ticketPosting w-auto">Posted at {{created_at|date:"H:i A" }}</span> 
                                                         </div>
-                                                        <h4 class="ticketQuestion">{{ data.title }}</h4> 
-                                                        <p class="ticketPara2">{{ data.description }}</p>  
+                                                        <h4 class="ticketQuestion">{{title }}</h4> 
+                                                        <p class="ticketPara2">{{description }}</p>  
                                                         <div class="border-box mt-3">
                                                             <form action="" method="POST">  
                                                                 {% csrf_token %} 
                                                                 <div class="row">
                                                                     <div class="col-md-4 mt-3">
                                                                         <label for="" class="allLbl">Email</label>
-                                                                        <input type="email" class="allinput w-100" value="{{ data.useremail }}" readonly>  
+                                                                        <input type="email" class="allinput w-100" value="{{useremail }}" readonly>  
                                                                     </div>
                                                                     <div class="col-md-4 mt-3">
                                                                         <label for="" class="allLbl">Priority Status</label>
