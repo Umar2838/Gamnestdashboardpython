@@ -3,13 +3,13 @@ function togglePasswordVisibility() {
   const passwordInput = document.getElementById('password');
   const toggleIcon = document.getElementById('toggleIcon');
   if (passwordInput.type === 'password') {
-      passwordInput.type = 'text';
-      toggleIcon.classList.remove('fa-eye-slash');
-      toggleIcon.classList.add('fa-eye');
+    passwordInput.type = 'text';
+    toggleIcon.classList.remove('fa-eye-slash');
+    toggleIcon.classList.add('fa-eye');
   } else {
-      passwordInput.type = 'password';
-      toggleIcon.classList.remove('fa-eye');
-      toggleIcon.classList.add('fa-eye-slash');
+    passwordInput.type = 'password';
+    toggleIcon.classList.remove('fa-eye');
+    toggleIcon.classList.add('fa-eye-slash');
   }
 }
 // ==============================Password Toggle===========================================//
@@ -19,18 +19,18 @@ function togglePasswordVisibility() {
 function getCookie(name) {
   let cookieValue = null;
   if (document.cookie && document.cookie !== '') {
-      const cookies = document.cookie.split(';');
-      for (let i = 0; i < cookies.length; i++) {
-          const cookie = cookies[i].trim();
-          if (cookie.substring(0, name.length + 1) === (name + '=')) {
-              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-              break;
-          }
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
       }
+    }
   }
   return cookieValue;
 }
-const csrftoken = getCookie('csrftoken'); 
+const csrftoken = getCookie('csrftoken');
 
 
 const loginbtn = document.getElementById("loginbtn");
@@ -54,18 +54,18 @@ loginbtn && loginbtn.addEventListener("submit", (e) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'X-CSRFToken': csrftoken  
+      'X-CSRFToken': csrftoken
     },
     body: JSON.stringify(data)
   })
     .then(response => response.json())
     .then(data => {
       if (data.success) {
-        
-        localStorage.setItem('role', data.role);  
-        localStorage.setItem('permissions', JSON.stringify(data.permissions));  
 
-        
+        localStorage.setItem('role', data.role);
+        localStorage.setItem('permissions', JSON.stringify(data.permissions));
+
+
 
         window.location.href = '/index';
       } else {
@@ -90,124 +90,124 @@ detailsChange && detailsChange.addEventListener("submit", (e) => {
 
 
   if (!changeusername.value || !changeemail.value) {
-      error.textContent = "Username or Email must be filled";
+    error.textContent = "Username or Email must be filled";
   }
 
   const changingData = {
-      newusername: changeusername.value,
-      newemail: changeemail.value
+    newusername: changeusername.value,
+    newemail: changeemail.value
   };
 
   fetch('settings', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': csrftoken 
-      },
-      body: JSON.stringify(changingData) 
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrftoken
+    },
+    body: JSON.stringify(changingData)
   })
-  .then(response => response.json())
-  .then(data => {
+    .then(response => response.json())
+    .then(data => {
       if (data.success) {
-          // window.location.href = '/settings';
-          success.textContent = "Profile updated successfully"
+        // window.location.href = '/settings';
+        success.textContent = "Profile updated successfully"
       } else {
-          error.textContent = data.message || "Invalid input";
+        error.textContent = data.message || "Invalid input";
       }
-  })
-  .catch(error => {
+    })
+    .catch(error => {
       console.error('Error:', error);
       error.textContent = "An error occurred. Please try again.";
-  });
+    });
 });
 //========================================Setting information changing functionality==========================//
 
 //========================================New Role Functionality==========================//
 const roleForm = document.getElementById('roleForm')
-roleForm && roleForm.addEventListener('submit', function(event) {
-  event.preventDefault(); 
+roleForm && roleForm.addEventListener('submit', function (event) {
+  event.preventDefault();
 
   // Get the role name and description
   const roleName = document.getElementById('roleName').value;
   const description = document.getElementById('description').value;
   const permissions = {
-      venueManagement: {
-          manageVenue: document.getElementById('manageVenue').checked,
-          addVenue: document.getElementById('addVenue').checked,
-          editVenue: document.getElementById('editVenue').checked,
-          deleteVenue: document.getElementById('deleteVenue').checked
-      },
-      gameManagement: {
-          manageGame: document.getElementById('manageGame').checked,
-          addGame: document.getElementById('addGame').checked,
-          editGame: document.getElementById('editGame').checked,
-          removeGame: document.getElementById('removeGame').checked
-      },
-      ticketManagement: {
-          viewTickets: document.getElementById('viewTickets').checked,
-          updateTickets: document.getElementById('updateTickets').checked,
-          addTickets: document.getElementById('addTickets').checked,
-          deleteTickets: document.getElementById('deleteTickets').checked
-      },
-      userManagement: {
-          manageUsers: document.getElementById('manageUsers').checked,
-          addUsers: document.getElementById('addUsers').checked,
-          editUsers: document.getElementById('editUsers').checked,
-          deleteUsers: document.getElementById('deleteUsers').checked
-      },
-      roleManagement: {
-          manageRoles: document.getElementById('manageRoles').checked,
-          addRoles: document.getElementById('addRoles').checked,
-          editRoles: document.getElementById('editRoles').checked,
-          deleteRoles: document.getElementById('deleteRoles').checked
-      },
-      reportGeneration: {
-          generateReports: document.getElementById('generateReports').checked,
-          viewStats: document.getElementById('viewStats').checked,
-          exportReports: document.getElementById('exportReports').checked
-      },
-      vendorManagement: {
-          manageVendors: document.getElementById('manageVendors').checked,
-          addVendors: document.getElementById('addVendors').checked,
-          editVendors: document.getElementById('editVendors').checked,
-          removeVendors: document.getElementById('removeVendors').checked
-      },
-      systemConfiguration: {
-          configureSystem: document.getElementById('configureSystem').checked,
-          customizeSystem: document.getElementById('customizeSystem').checked,
-          manageIntegrations: document.getElementById('manageIntegrations').checked
-      },
-      customerSupport: {
-          respondInquiries: document.getElementById('respondInquiries').checked
-      }
+    venueManagement: {
+      manageVenue: document.getElementById('manageVenue').checked,
+      addVenue: document.getElementById('addVenue').checked,
+      editVenue: document.getElementById('editVenue').checked,
+      deleteVenue: document.getElementById('deleteVenue').checked
+    },
+    gameManagement: {
+      manageGame: document.getElementById('manageGame').checked,
+      addGame: document.getElementById('addGame').checked,
+      editGame: document.getElementById('editGame').checked,
+      removeGame: document.getElementById('removeGame').checked
+    },
+    ticketManagement: {
+      viewTickets: document.getElementById('viewTickets').checked,
+      updateTickets: document.getElementById('updateTickets').checked,
+      addTickets: document.getElementById('addTickets').checked,
+      deleteTickets: document.getElementById('deleteTickets').checked
+    },
+    userManagement: {
+      manageUsers: document.getElementById('manageUsers').checked,
+      addUsers: document.getElementById('addUsers').checked,
+      editUsers: document.getElementById('editUsers').checked,
+      deleteUsers: document.getElementById('deleteUsers').checked
+    },
+    roleManagement: {
+      manageRoles: document.getElementById('manageRoles').checked,
+      addRoles: document.getElementById('addRoles').checked,
+      editRoles: document.getElementById('editRoles').checked,
+      deleteRoles: document.getElementById('deleteRoles').checked
+    },
+    reportGeneration: {
+      generateReports: document.getElementById('generateReports').checked,
+      viewStats: document.getElementById('viewStats').checked,
+      exportReports: document.getElementById('exportReports').checked
+    },
+    vendorManagement: {
+      manageVendors: document.getElementById('manageVendors').checked,
+      addVendors: document.getElementById('addVendors').checked,
+      editVendors: document.getElementById('editVendors').checked,
+      removeVendors: document.getElementById('removeVendors').checked
+    },
+    systemConfiguration: {
+      configureSystem: document.getElementById('configureSystem').checked,
+      customizeSystem: document.getElementById('customizeSystem').checked,
+      manageIntegrations: document.getElementById('manageIntegrations').checked
+    },
+    customerSupport: {
+      respondInquiries: document.getElementById('respondInquiries').checked
+    }
   };
 
-  if(!roleName || !description || !permissions){
+  if (!roleName || !description || !permissions) {
     error.textContent = "All field are required"
   }
 
   const formData = {
-      roleName,
-      description,
-      permissions
-  }; 
+    roleName,
+    description,
+    permissions
+  };
   // Example of sending the data to a server
-  
+
   fetch('users', {
     method: 'POST',
     headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': csrftoken 
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrftoken
     },
     body: JSON.stringify(formData)
-}).then(response => response.json())
-  .then(data => {
+  }).then(response => response.json())
+    .then(data => {
       console.log('Success:', data);
       success.textContent = "Role created successfully"
     }).catch((err) => {
       console.error('Error:', err);
       error.textContent = err
-  });
+    });
 });
 
 //========================================New Role Functionality==========================//
@@ -217,51 +217,51 @@ roleForm && roleForm.addEventListener('submit', function(event) {
 const usercreateForm = document.getElementById("usercreateForm");
 
 usercreateForm && usercreateForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const newusername = document.getElementById("username").value;
-    const useremail = document.getElementById("useremail").value;
-    const userpassword = document.getElementById("userpassword").value;
-    const userrole = document.getElementById("userrole").value;
+  e.preventDefault();
+  const newusername = document.getElementById("username").value;
+  const useremail = document.getElementById("useremail").value;
+  const userpassword = document.getElementById("userpassword").value;
+  const userrole = document.getElementById("userrole").value;
 
-    const error = document.getElementById("error");
-    const success = document.getElementById("success");
+  const error = document.getElementById("error");
+  const success = document.getElementById("success");
 
-    // Clear previous messages
-    error.textContent = "";
-    success.textContent = "";
+  // Clear previous messages
+  error.textContent = "";
+  success.textContent = "";
 
-    if (!newusername || !useremail || !userpassword || !userrole) {
-        errorElement.textContent = "All fields are required.";
-        return;
-    }
+  if (!newusername || !useremail || !userpassword || !userrole) {
+    errorElement.textContent = "All fields are required.";
+    return;
+  }
 
-    const newUserData = {
-        newusername: newusername,
-        useremail: useremail,
-        userpassword:userpassword,
-        userrole: userrole
-    };
- console.log(newUserData);
-    fetch('users', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken  // Ensure csrftoken is correctly defined
-        },
-        body: JSON.stringify(newUserData)
-    })
+  const newUserData = {
+    newusername: newusername,
+    useremail: useremail,
+    userpassword: userpassword,
+    userrole: userrole
+  };
+  console.log(newUserData);
+  fetch('users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrftoken  // Ensure csrftoken is correctly defined
+    },
+    body: JSON.stringify(newUserData)
+  })
     .then(response => response.json())
     .then(data => {
-        if (data.error) {
-            error.textContent = data.error;
-        } else {
-            success.textContent = data.message;
-            usercreateForm.reset();
-        }
+      if (data.error) {
+        error.textContent = data.error;
+      } else {
+        success.textContent = data.message;
+        usercreateForm.reset();
+      }
     })
     .catch((err) => {
-        console.error('Error:', err);
-        error.textContent = 'An error occurred while creating the user.';
+      console.error('Error:', err);
+      error.textContent = 'An error occurred while creating the user.';
     });
 });
 
@@ -271,28 +271,28 @@ usercreateForm && usercreateForm.addEventListener("submit", (e) => {
 //========================================Logout functionality==========================//
 const logout = document.getElementById("logout")
 logout && logout.addEventListener("click", () => {
-      fetch('logout', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json',
-              'X-CSRFToken': csrftoken
-          },
-      })
-      .then(response => {
-          if (response.ok) {
-              return response.json();
-          } else {
-              throw new Error('Logout failed');
-          }
-      })
-      .then(data => {
-          window.location.href = "/";
-      })
-      .catch(error => {
-          console.error('Error:', error);
-          alert('An error occurred during logout. Please try again.');
-      });
+  fetch('logout', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrftoken
+    },
   })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Logout failed');
+      }
+    })
+    .then(data => {
+      window.location.href = "/";
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('An error occurred during logout. Please try again.');
+    });
+})
 
 
 //========================================Logout functionality==========================//
@@ -323,9 +323,9 @@ function toggleSideNav() {
 
 
 
-window.onload = function() {
+window.onload = function () {
   permissions = JSON.parse(localStorage.getItem("permissions"))
-console.log(permissions)
+  console.log(permissions)
   const addVenues = document.getElementById("addVenues");
   const editVenue = document.getElementById("editVenue");
   const editVenuebtn = document.getElementById("editVenuebtn");
@@ -345,48 +345,48 @@ console.log(permissions)
   const notificationPreference = document.getElementById("v-pills-notification")
   const actiondiv = document.querySelector(".actiondiv")
 
-  if(permissions.venueManagement.addVenue == false && addVenues){
+  if (permissions.venueManagement.addVenue == false && addVenues) {
     addVenues.style.display = "none"
-    actiondiv.style.marginTop="0px"
+    actiondiv.style.marginTop = "0px"
 
   }
-  if(permissions.venueManagement.editVenue == false && editVenue){
+  if (permissions.venueManagement.editVenue == false && editVenue) {
     editVenue.style.cursor = "default"
     editVenue.removeAttribute("onclick")
   }
-  if(permissions.ticketManagement.addTickets == false && addTicketbtn){
+  if (permissions.ticketManagement.addTickets == false && addTicketbtn) {
     addTicketbtn.style.display = "none"
-    actiondiv.style.marginTop="0px"
+    actiondiv.style.marginTop = "0px"
 
   }
-  if(permissions.ticketManagement.addTickets == false && addTicket){
+  if (permissions.ticketManagement.addTickets == false && addTicket) {
     addTicket.style.display = "none"
-    actiondiv.style.marginTop="0px"
+    actiondiv.style.marginTop = "0px"
 
   }
-  if(permissions.gameManagement.addGame == false && addGame){
+  if (permissions.gameManagement.addGame == false && addGame) {
     addGame.style.display = "none"
   }
-  if(permissions.roleManagement.addRoles == false && addRole){
+  if (permissions.roleManagement.addRoles == false && addRole) {
     addRole.style.display = "none"
     actiondiv.classList.remove("actiondiv")
 
   }
-  if(permissions.userManagement.addUsers == false && addUser){
+  if (permissions.userManagement.addUsers == false && addUser) {
     addUser.style.display = "none"
     actiondiv.classList.remove("actiondiv")
   }
-  if(permissions.customerSupport.respondInquiries == false && supportSection){
+  if (permissions.customerSupport.respondInquiries == false && supportSection) {
     supportSection.style.display = "none"
   }
-  if(permissions.reportGeneration.viewStats == false && staticsSection){
+  if (permissions.reportGeneration.viewStats == false && staticsSection) {
     staticsSection.style.display = "none"
   }
-  if(permissions.systemConfiguration.configureSystem == false && securitySection && securitybtn){
+  if (permissions.systemConfiguration.configureSystem == false && securitySection && securitybtn) {
     securitybtn.style.display = "none"
     securitySection.style.display = "none"
   }
-  if(permissions.systemConfiguration.customizeSystem == false && notificationbtn && notificationPreference ){
+  if (permissions.systemConfiguration.customizeSystem == false && notificationbtn && notificationPreference) {
     notificationbtn.style.display = "none"
     notificationPreference.style.display = "none"
   }
@@ -400,7 +400,7 @@ console.log(permissions)
   //   roleSection.style.display = "none"
   // }
 }
-  
+
 // ============================== Dashboard Permission check ============================================//
 // ======================================Venue Creation=================================================//
 const venueForm = document.getElementById("venueForm")
@@ -413,32 +413,32 @@ venueForm && venueForm.addEventListener("submit", (e) => {
   const location = document.getElementById("location").value
   const hours = document.getElementById("hours").value
 
-const VenueData = {
+  const VenueData = {
 
-  name,
-  phone,
-  email,
-  location,
-  hours,
-}
-fetch('venues',{
-  method: 'POST',
-  headers:{
-    'Content-Type': 'application/json',
-    'X-CSRFTOKEN':csrftoken
-  },
-  body:JSON.stringify(VenueData)
+    name,
+    phone,
+    email,
+    location,
+    hours,
+  }
+  fetch('venues', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFTOKEN': csrftoken
+    },
+    body: JSON.stringify(VenueData)
 
-}).then(response => response.json())
-.then(data => {
-    console.log('Success:', data);
+  }).then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
       success.textContent = "Venue created successfully"
-  
-  }).catch((err) => {
-    console.error('Error:', err); 
-    error.textContent = err
 
-});
+    }).catch((err) => {
+      console.error('Error:', err);
+      error.textContent = err
+
+    });
 })
 
 // ======================================Venue Creation=================================================//
@@ -446,8 +446,8 @@ fetch('venues',{
 // =========================================Ticket Creation=============================================//
 const ticketForm = document.getElementById('ticketForm')
 
-ticketForm && ticketForm.addEventListener('submit', function(e) {
-e.preventDefault()  
+ticketForm && ticketForm.addEventListener('submit', function (e) {
+  e.preventDefault()
   const name = document.getElementById('ticketName').value;
   const description = document.getElementById('ticketDescription').value;
   const type = document.getElementById('ticketType').value;
@@ -461,24 +461,24 @@ e.preventDefault()
     duration,
     price
   }
-  fetch('tickets',{
+  fetch('tickets', {
     method: 'POST',
-    headers:{
+    headers: {
       'Content-Type': 'application/json',
-      'X-CSRFTOKEN':csrftoken
+      'X-CSRFTOKEN': csrftoken
     },
-    body:JSON.stringify(ticketData)
-  
+    body: JSON.stringify(ticketData)
+
   }).then(response => response.json())
-  .then(data => {
+    .then(data => {
       console.log('Success:', data);
-        success.textContent = "Ticket created successfully"
-    
+      success.textContent = "Ticket created successfully"
+
     }).catch((err) => {
-      console.error('Error:', err); 
+      console.error('Error:', err);
       error.textContent = err
-  
-  });
+
+    });
 
 });
 
@@ -488,15 +488,20 @@ e.preventDefault()
 
 
 // ============================== Support ticket show ============================================//
-fetch('http://localhost:8001/api/tickets/') 
-.then(response => response.json())
-.then(data => {
-    console.log(data); 
-    const ticketList = document.getElementById('ticket-list');
+document.addEventListener('DOMContentLoaded', function () {
 
-    data.forEach(ticket => {
+  fetch('http://localhost:8001/api/tickets/')
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      const ticketList = document.getElementById('ticket-list');
+      if (!ticketList) {
+        console.error('Error: ticket-list element not found');
+        return;
+      }
+      data.forEach(ticket => {
         const ticketItem = document.createElement('li');
-        ticketItem.classList.add('border-box', 'mt-3'); 
+        ticketItem.classList.add('border-box', 'mt-3');
 
         ticketItem.innerHTML = `
             <div class="d-flex align-items-start justify-content-between">
@@ -508,7 +513,7 @@ fetch('http://localhost:8001/api/tickets/')
                     </div>
                     <h4 class="ticketQuestion">${ticket.title}</h4>
                     <p class="ticketPara">${ticket.description
-                      || 'No additional details provided.'}</p>  <!-- Assuming 'details' is in the API response -->
+          || 'No additional details provided.'}</p>  <!-- Assuming 'details' is in the API response -->
                 </div>
                 <span class="ticketPosting">Posted at ${new Date(ticket.created_at).toLocaleTimeString()}</span>  <!-- Formatting date -->
             </div>
@@ -518,61 +523,150 @@ fetch('http://localhost:8001/api/tickets/')
                          class="ticketImg">
                     <span class="ticketUserName">${ticket.user_name}</span>
                 </div>
-                <a href="/support-ticket-detail/${ticket.id}" class="ticketLink">Open Ticket</a>
+                <a href="supportTicketDetail" onclick={handleopenTicket(${ticket.id})} class="ticketLink">Open Ticket</a>
             </div>
         `;
 
-        // Append the ticket item to the list
         ticketList.appendChild(ticketItem);
+      });
+    })
+    .catch(error => {
+      console.error('Error fetching tickets:', error);
     });
-})
-.catch(error => {
-    console.error('Error fetching tickets:', error);
 });
+
+const handleopenTicket = (ticket_id) => {
+  fetch('http://localhost:8001/api/tickets/')
+    .then(response => response.json())
+    .then(data => {
+      console.log("data", data[0].id)
+      for (var i = 0; i < data.length; i++) {
+        if (data[i].id == ticket_id) {
+
+          let currentticketData = {
+            id: data[i].id,
+            title: data[i].title,
+            description: data[i].description,
+            created_at: data[i].created_at,
+            useremail: data[i].useremail
+
+          }
+
+
+          fetch('supportTicketDetail', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFTOKEN': csrftoken
+            },
+            body: JSON.stringify(currentticketData)
+          }).then(response => response.json())
+            .then(data => {
+              console.log('Success:', data);
+            }).catch((err) => {
+              console.error('Error:', err);
+              error.textContent = err
+
+            });
+
+        }
+
+      }
+    })
+
+}
 
 // ============================== Support ticket show ============================================//
 
 // ========================================Headset Creation=======================================//
-const headetForm = document.getElementById('vrHeadsetForm')
-headetForm && headetForm.addEventListener('submit', function(event) {
+const headetForm = document.getElementById('vrHeadsetForm');
+headetForm && headetForm.addEventListener('submit', function (event) {
   event.preventDefault();
-  
-  const vrName = document.getElementById('vrName').value;
-  const modelNumber = document.getElementById('modelNumber').value;
-  const serialNumber = document.getElementById('serialNumber').value;
-  const barcodeNumber = document.getElementById('barcodeNumber').value;
+
+  const name = document.getElementById('name').value;
+  const modelNo = document.getElementById('modelNumber').value;
+  const serialNo = document.getElementById('serialNumber').value;
+  const barcodeNo = document.getElementById('barcodeNumber').value;
   const assignedVenue = document.getElementById('assignedVenue').value;
 
   const headsetData = {
-    vrName,
-    modelNumber,
-    serialNumber,
-    barcodeNumber,
+    name,
+    modelNo,
+    serialNo,
+    barcodeNo: parseInt(barcodeNo),
     assignedVenue
-  }
-  fetch('newheadset',{
-    method:'POST',
-    headers:{
+  };
+
+  fetch('newheadset', {
+    method: 'POST',
+    headers: {
       'Content-Type': 'application/json',
-      'X-CSRFTOKEN':csrftoken
+      'X-CSRFTOKEN': csrftoken  // Assuming csrftoken is defined somewhere else in your script
     },
-    body:{
-         data: JSON.stringify(headsetData)
-    }
-  }).then(response => response.json())
+    body: JSON.stringify(headsetData)
+  })
+    .then(response => response.json())
     .then(data => {
-            success.textContent = data.message;
-            console.log(data) 
+      if (data.error) {
+        error.textContent = data.error;
+      } else {
+        success.textContent = data.message;
+        console.log(data);
+      }
     })
     .catch((err) => {
-        console.error('Error:', err);
-        error.textContent = 'An error occurred while creating the user.';
+      console.error('Error:', err);
+      error.textContent = 'An error occurred while creating the headset.';
     });
-
 });
 
 
 // ========================================Headset Creation=======================================//
+
+// ========================================Tablet Creation=======================================//
+const tabletForm = document.getElementById('tabletForm');
+tabletForm && tabletForm.addEventListener('submit', function (event) {
+  event.preventDefault();
+
+  const name = document.getElementById('name').value;
+  const modelNo = document.getElementById('modelNumber').value;
+  const serialNo = document.getElementById('serialNumber').value;
+  const barcodeNo = document.getElementById('barcodeNumber').value;
+  const assignedVenue = document.getElementById('assignedVenue').value;
+
+  const tabletData = {
+    name,
+    modelNo,
+    serialNo,
+    barcodeNo: parseInt(barcodeNo),
+    assignedVenue
+  };
+
+  fetch('new_tablet', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFTOKEN': csrftoken
+    },
+    body: JSON.stringify(tabletData)
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        error.textContent = data.error;
+      } else {
+        success.textContent = data.message;
+        console.log(data);
+      }
+    })
+    .catch((err) => {
+      console.error('Error:', err);
+      error.textContent = 'An error occurred while creating the headset.';
+    });
+});
+
+
+// ========================================Tablet Creation=======================================//
 
 
 // ============================== Navbar Toggle ============================================//

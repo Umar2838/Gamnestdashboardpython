@@ -1,10 +1,10 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,get_object_or_404
 from django.contrib.auth.decorators import login_required
 import json
 from django.http import JsonResponse
 from django.contrib.auth import authenticate,login as django_login,logout
 from django.contrib.auth.models import User
-from .models import Role,Profile,Venues,Tickets,Headset
+from .models import Role,Profile,Venues,Tickets,Headset,Tablet
 from django.core.paginator import Paginator
 
 
@@ -130,60 +130,95 @@ def tickets(request):
 def units(request):
     if request.user.is_authenticated:
         username = request.user.username  
-    return render(request,'units.html',{'username':username})
+        headsets = Headset.objects.all().order_by('id')
+        headsets_paginator = Paginator(headsets, 10)
+        headsets_page_number = request.GET.get('page',1)
+        headsetspage_obj = headsets_paginator.get_page(headsets_page_number)   
 
-from django.shortcuts import render
-from django.http import JsonResponse
-from django.contrib.auth.decorators import login_required
-from .models import Headset, Venues  # Assuming Headset and Venues models are defined
-import json
+        tablets = Tablet.objects.all().order_by('id')
+        tablets_paginator = Paginator(tablets, 10)
+        tablets_page_number = request.GET.get('page',1)
+        tabletspage_obj = tablets_paginator.get_page(tablets_page_number)   
+    return render(request,'units.html',{'username':username,'headsets':headsets,'headsetspage_obj':headsetspage_obj,'tablets':tablets,'tabletspage_obj':tabletspage_obj})
 
 @login_required
 def newheadset(request):
-    username = request.user.username
-    headsets = None 
-
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
-            
+
             name = data.get('name')
-            modelNumber = data.get('modelNumber')
-            serialNumber = data.get('serialNumber')
-            barcodeNumber = data.get('barcodeNumber')
-            assignedVenueId = data.get('assignedVenue')  # Get venue ID from data
+            modelNo = data.get('modelNo')  
+            serialNo = data.get('serialNo')  
+            barcodeNo = data.get('barcodeNo')  
+            assignedVenue = data.get('assignedVenue')
 
-                # Ensure all fields are filled
-            if not name or not modelNumber or not serialNumber or not barcodeNumber or not assignedVenueId:
-                return JsonResponse({'error': 'Headset name, modelNumber, serialNumber, barcodeNumber, and assignedVenue are required.'}, status=400)
+            # Ensure all fields are filled
+            if not name or not modelNo or not serialNo or not barcodeNo or not assignedVenue:
+                return JsonResponse({'error': 'All fields are required.'}, status=400)
 
-                # Fetch assigned venue from the database
+            # Fetch assigned venue from the database
             try:
-                    assignedVenue = Venues.objects.get(id=assignedVenueId)
+                assignedVenue = Venues.objects.get(id=assignedVenue)
             except Venues.DoesNotExist:
                 return JsonResponse({'error': 'Assigned Venue not found.'}, status=404)
 
-                # Create new Headset
-            headsets = Headset(name=name, modelNumber=modelNumber, serialNumber=serialNumber, barcodeNumber=barcodeNumber, assignedVenue=assignedVenue)
+            # Create new Headset (make sure to assign the foreign key field `venue`)
+            headsets = Headset(
+                name=name,
+                modelNo=modelNo,
+                serialNo=serialNo,
+                barcodeNo=int(barcodeNo),
+                venue=assignedVenue 
+            )
             headsets.save()
 
             return JsonResponse({'message': 'Headset created successfully!', 'headset_id': headsets.id}, status=201)
-        
+
         except json.JSONDecodeError:
             return JsonResponse({'error': 'Invalid JSON data.'}, status=400)
 
-    # If the request method is GET, or after handling POST, we fetch venues for the dropdown
     venues = Venues.objects.all()
-
-    return render(request, 'new-headset.html', {'username': username, 'headsets': headsets, 'venues': venues})
+    return render(request, 'new-headset.html', {'username': request.user.username, 'venues': venues})
 
 @login_required
 def new_tablet(request):
-    if request.user.is_authenticated:
-        username = request.user.username
-    else:
-        username = None    
-    return render(request,'new-tablet.html',{'username':username})
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+
+            name = data.get('name')
+            modelNo = data.get('modelNo')  
+            serialNo = data.get('serialNo')  
+            barcodeNo = data.get('barcodeNo')  
+            assignedVenue = data.get('assignedVenue')
+
+            # Ensure all fields are filled
+            if not name or not modelNo or not serialNo or not barcodeNo or not assignedVenue:
+                return JsonResponse({'error': 'All fields are required.'}, status=400)
+
+            # Fetch assigned venue from the database
+            try:
+                assignedVenue = Venues.objects.get(id=assignedVenue)
+            except Venues.DoesNotExist:
+                return JsonResponse({'error': 'Assigned Venue not found.'}, status=404)
+            tablets = Tablet(
+                name=name,
+                modelNo=modelNo,
+                serialNo=serialNo,
+                barcodeNo=int(barcodeNo),
+                venue=assignedVenue 
+            )
+            tablets.save()
+
+            return JsonResponse({'message': 'Tablet created successfully!', 'tablet_id': tablets.id}, status=201)
+
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON data.'}, status=400)
+
+    venues = Venues.objects.all()
+    return render(request, 'new-tablet.html', {'username': request.user.username, 'venues': venues})
+
 @login_required
 def statistics(request):
     if request.user.is_authenticated:
@@ -273,9 +308,43 @@ def support(request):
         username = None    
     return render(request,'support.html',{'username':username}) 
 
+from django.http import JsonResponse
+from django.shortcuts import render
+import json
+
+from django.http import JsonResponse
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt  # Optional if CSRF token isn't needed
+import json
+
 @login_required
 def supportTicketDetail(request):
-    return render(request,'support-ticket-details.html')
+    # Initialize data as an empty dictionary or None
+    ticketData = {}
+
+    if request.method == 'POST':
+        try:
+
+            data = json.loads(request.body)
+            print(data[id])
+            ticketData = {
+                'id': data.id,
+                'title': data.title,
+                'description': data.description,
+                'created_at': data.created_at,
+                'useremail': data.useremail,
+                # 'priority': ticket.priority,  # Assuming your model has a priority field
+                # 'status': ticket.status,  # Assuming your model has a status field
+                # 'body': ticket.body
+            }
+            print(ticketData)
+            return JsonResponse({'message': 'User created successfully!'}, status=201)
+        except json.JSONDecodeError: 
+            return JsonResponse({'message': 'Something went wrong'}, status=400)
+
+    return render(request, 'support-ticket-detail.html', {'data': ticketData})
+
+
 
 @login_required
 def settings(request):

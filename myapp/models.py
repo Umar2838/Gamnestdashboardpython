@@ -58,3 +58,13 @@ class Headset(models.Model):
     def __str__(self):
         return self.name
        
+class Tablet(models.Model):
+    name = models.CharField(max_length=245)
+    modelNo = models.CharField(max_length=245)
+    serialNo = models.CharField(max_length=245)
+    barcodeNo = models.IntegerField()
+    assignedVenue = models.CharField(max_length=20)
+    venue = models.ForeignKey(Venues, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name       

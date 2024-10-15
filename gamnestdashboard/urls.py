@@ -18,7 +18,7 @@ urlpatterns = [
     path('statistics',statistics,name="statistics"),
     path('users',users,name="users"),
     path('support',support,name="support"),
-    path('support-ticket-detail',supportTicketDetail,name="supportTicketDetail"),
+    path('supportTicketDetail',supportTicketDetail,name="supportTicketDetail"),
     path('settings',settings,name="settings"),
     path('logout',logoutbtn,name='logout')
 

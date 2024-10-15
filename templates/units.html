@@ -350,43 +350,40 @@
                                                         
                                                         
                                                         <tbody>
-
+                                                            {% for headsets in headsetspage_obj %}
                                                                 <tr>
                                                                     <td>
                                                                         <p class="checkbx">
-                                                                            <input type="checkbox" id="c2" name="cb">
-                                                                            <label for="c2">Meta Quest 3</label>
+                                                                            <input type="checkbox" id="headsets_{{headsets.id}}" name="cb">
+                                                                            <label for="headsets_{{headsets.id}}">{{headsets.name}}</label>
                                                                         </p>
                                                                     </td>
-                                                                    <td>VR-3000x</td>
-                                                                    <td>SN-1234567890</td>
-                                                                    <td>115791441</td>
-                                                                    <td>GlowingSoft</td>
+                                                                    <td>{{headsets.modelNo}}</td>
+                                                                    <td>{{headsets.serialNo}}</td>
+                                                                    <td>{{headsets.barcodeNo}}</td>
+                                                                    <td>{{headsets.venue.name}}</td>
                                                                 </tr>
-                                                                <tr>
-                                                                <td>
-                                                                        <p class="checkbx">
-                                                                            <input type="checkbox" id="c3" name="cb">
-                                                                            <label for="c3">Meta Quest 3</label>
-                                                                        </p>
-                                                                    </td>
-                                                                <td>VR-3000x</td>
-                                                                <td>SN-1234567891</td>
-                                                                <td>115791442</td>
-                                                                <td>GlowingSoft</td>
-                                                            </tr>
+                                                              {% endfor %}
                                                         </tbody>
                                                     </a>
                                                     </table>
                                                 </div>
                                                 <ul class="pagination mt-3 justify-content-end pe-3">
-                                                    <li class="page-item"><a class="page-link" href="#">Previous</a>
+                                                    {% if headsetspage_obj.has_previous %}
+                                                    <li class="page-item"><a class="page-link"
+                                                            href="?page=1">Previous</a></li>
+                                                    {% endif %}
+                                                    {% for i in headsetspage_obj.paginator.page_range %}
+                                                    <li
+                                                        class="page-item {% if headsetspage_obj.number == i %}active{% endif %}">
+                                                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
                                                     </li>
-                                                    <li class="page-item active"><a class="page-link" href="#">1</a>
+                                                    {% endfor %}
+                                                    {% if headsetspage_obj.has_next %}
+                                                    <li class="page-item"><a class="page-link"
+                                                            href="?page={{ headsetspage_obj.paginator.num_pages }}">Next</a>
                                                     </li>
-                                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                                    {% endif %}
                                                 </ul>
                                             </div>
                                         </div>
@@ -408,7 +405,7 @@
                                             </div>
                                         </div>
                                         <div class="offset-md-2 col-md-6 mt-md-0 mt-3 text-end">
-                                            <a href="new_headset" > <button class="orange-btn" data-bs-toggle="modal"
+                                            <a href="new_tablet" > <button class="orange-btn" data-bs-toggle="modal"
                                                 data-bs-target="#newTicket" aria-label="New Ticket">
                                                 <i class="fas fa-plus me-2"></i>New Tablets
                                             </button>
@@ -442,54 +439,40 @@
                                                             <th>Assigned Venues <i class="fas fa-angle-down ms-2"></i></th>
                                                         </thead>
                                                         <tbody>
+                                                            {% for tablets in tabletspage_obj  %}
                                                             <tr>
                                                                 <td>
                                                                     <p class="checkbx">
-                                                                        <input type="checkbox" id="c2" name="cb">
-                                                                        <label for="c2">Samsung Tab 9</label>
+                                                                        <input type="checkbox" id="tablets_{{tablets.id}}" name="cb">
+                                                                        <label for="tablets_{{tablets.id}}">{{tablets.name}}</label>
                                                                     </p>
                                                                 </td>
-                                                                <td>VR-3000x</td>
-                                                                <td>SN-1234567890</td>
-                                                                <td>115791441</td>
-                                                                <td>GlowingSoft</td>
+                                                                <td>{{tablets.modelNo}}</td>
+                                                                <td>{{tablets.serialNo}}</td>
+                                                                <td>{{tablets.barcodeNo}}</td>
+                                                                <td>{{tablets.venue.name}}</td>
                                                             </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <p class="checkbx">
-                                                                        <input type="checkbox" id="c3" name="cb">
-                                                                        <label for="c3">Samsung Tab 9</label>
-                                                                    </p>
-                                                                </td>
-                                                                <td>VR-3000x</td>
-                                                                <td>SN-1234567891</td>
-                                                                <td>115791442</td>
-                                                                <td>GlowingSoft</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <p class="checkbx">
-                                                                        <input type="checkbox" id="c3" name="cb">
-                                                                        <label for="c3">Samsung Tab 9</label>
-                                                                    </p>
-                                                                </td>
-                                                                <td>VR-3000x</td>
-                                                                <td>SN-1234567891</td>
-                                                                <td>115791442</td>
-                                                                <td>Storage</td>
-                                                            </tr>
+                                                            {% endfor%}
                                                         </tbody>
                                                         
                                                     </table>
                                                 </div>
                                                 <ul class="pagination mt-3 justify-content-end pe-3">
-                                                    <li class="page-item"><a class="page-link" href="#">Previous</a>
+                                                    {% if  tabletspage_obj.has_previous %}
+                                                    <li class="page-item"><a class="page-link"
+                                                            href="?page=1">Previous</a></li>
+                                                    {% endif %}
+                                                    {% for i in  tabletspage_obj.paginator.page_range %}
+                                                    <li
+                                                        class="page-item {% if  tabletspage_obj.number == i %}active{% endif %}">
+                                                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
                                                     </li>
-                                                    <li class="page-item active"><a class="page-link" href="#">1</a>
+                                                    {% endfor %}
+                                                    {% if tabletspage_obj.has_next %}
+                                                    <li class="page-item"><a class="page-link"
+                                                            href="?page={{  tabletspage_obj.paginator.num_pages }}">Next</a>
                                                     </li>
-                                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                                    {% endif %}
                                                 </ul>
                                             </div>
                                         </div>
@@ -497,104 +480,6 @@
                                 </section>
 
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="newTicket" tabindex="-1"
-                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-body p-3">
-                                            <h2 class="sub-heading">Create New Ticket</h2>
-                                            <form action="">
-                                                <div class="row">
-                                                    <div class="col-12 mt-3">
-                                                        <label for="" class="allLbl">Name</label>
-                                                        <input type="text" class="allinput w-100">
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-12 mt-3">
-                                                        <label for="" class="allLbl">Description</label>
-                                                        <textarea name="" id="" cols="30" rows="5"
-                                                            class="allinput w-100"></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-6 mt-3">
-                                                        <label for="" class="allLbl">Type</label>
-                                                        <select name="" id="" class="allinput w-100">
-                                                            <option value="time">Time</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-lg-6 mt-3">
-                                                        <label for="" class="allLbl">Duration</label>
-                                                        <input type="text" class="allinput w-100" value="00:00:00">
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-12 mt-3">
-                                                        <label for="" class="allLbl">Price</label>
-                                                        <input type="text" class="allinput w-100"
-                                                            style="text-align: right;" value="€00.00">
-                                                    </div>
-                                                    <div class="col-12 text-end mt-3">
-                                                        <button class="orange-btn-3">Cancel</button>
-                                                        <button type="button " class="orange-btn"
-                                                            data-bs-dismiss="modal" aria-label="Close">Create</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Modal -->
-                            <!-- Modal -->
-                            <div class="modal fade" id="newTicket2" tabindex="-1"
-                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-body p-3">
-                                            <h2 class="sub-heading">Create New Ticket</h2>
-                                            <form action="">
-                                                <div class="row">
-                                                    <div class="col-12 mt-3">
-                                                        <label for="" class="allLbl">Name</label>
-                                                        <input type="text" class="allinput w-100">
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-12 mt-3">
-                                                        <label for="" class="allLbl">Description</label>
-                                                        <textarea name="" id="" cols="30" rows="5"
-                                                            class="allinput w-100"></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-6 mt-3">
-                                                        <label for="" class="allLbl">Type</label>
-                                                        <select name="" id="" class="allinput w-100">
-                                                            <option value="credit">Credit</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-lg-6 mt-3">
-                                                        <label for="" class="allLbl">Price</label>
-                                                        <input type="text" class="allinput w-100"
-                                                            style="text-align: right;" value="€00.00">
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-12 text-end mt-3">
-                                                        <button class="orange-btn-3">Cancel</button>
-                                                        <button type="button " class="orange-btn"
-                                                            data-bs-dismiss="modal" aria-label="Close">Create</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Modal -->
 
                             <!--footer start here-->
 

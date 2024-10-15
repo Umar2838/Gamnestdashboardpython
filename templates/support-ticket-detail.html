@@ -249,71 +249,68 @@
                         <div class="contentArea">
                             <button class="open-btn hidden" onclick="toggleSideNav()"><i
                                     class="fas fa-angle-right"></i></button>
-                            <section class="marginTopAll">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <a href="support" class="backLink">
-                                                <i class="fas fa-arrow-left me-2"></i>Back</a> <span
-                                                class="backLink">|</span>
-                                            <span class="sub-heading">Ticket# 2023-CS123</span>
-                                        </div>
-                                        <div class="col-12 mt-3">
-                                            <div class="border-box">
-                                                <div class="d-flex align-items-start justify-content-between">
-                                                    <div class="d-flex align-items-center">
-                                                        <span class="ticketIcon"></span>
-                                                        <h3 class="ticketHeading">Ticket# 2023-CS123</h3>
-                                                    </div>
-                                                    <span class="ticketPosting w-auto">Posted at 12:45 AM</span>
+                                
+                                     <section class="marginTopAll">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <a href="/support" class="backLink">
+                                                        <i class="fas fa-arrow-left me-2"></i>Back
+                                                    </a>
+                                                    <span class="backLink">|</span>
+                                                    <span class="sub-heading">Ticket</span>
                                                 </div>
-                                                <h4 class="ticketQuestion">How to deposit money to my portal?</h4>
-                                                <p class="ticketPara2">Lorem ipsum dolor sit amet consectetur,
-                                                    adipisicing elit. Distinctio dolores, velit pariatur incidunt
-                                                    eveniet mollitia tempore accusantium, porro delectus consectetur
-                                                    ducimus in molestias alias repudiandae enim eos. Laudantium, eum
-                                                    beatae?Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
-                                                    tenetur possimus porro eaque dicta quidem. Delectus quidem excepturi
-                                                    nisi! Minus nostrum iste perspiciatis consequatur sapiente suscipit
-                                                    nam adipisci ullam aspernatur.</p>
-                                                <div class="border-box mt-3">
-                                                    <form action="">
-                                                        <div class="row">
-                                                            <div class="col-md-4 mt-3">
-                                                                <label for="" class="allLbl">Email</label>
-                                                                <input type="email" class="allinput w-100"
-                                                                    value="xsasyd@gmail.com">
+                                                <div class="col-12 mt-3">
+                                                    <div class="border-box">
+                                                        <div class="d-flex align-items-start justify-content-between">
+                                                            <div class="d-flex align-items-center">
+                                                                <span class="ticketIcon"></span>
+                                                                <h3 class="ticketHeading">Ticket# {{data.id}}</h3>  
                                                             </div>
-                                                            <div class="col-md-4 mt-3">
-                                                                <label for="" class="allLbl">Priority Status</label>
-                                                                <select name="" id="" class="allinput w-100">
-                                                                    <option value="high">High</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-md-4 mt-3">
-                                                                <label for="" class="allLbl">Status</label>
-                                                                <select name="" id="" class="allinput w-100">
-                                                                    <option value="on-going">On Going</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-12 mt-3">
-                                                                <label for="" class="allLbl">Ticket Body</label>
-                                                                <textarea placeholder="Type ticket issue here ..."
-                                                                    name="" id="" cols="30" rows="10"
-                                                                    class="allinput w-100"></textarea>
-                                                            </div>
-                                                            <div class="col-12 text-end mt-lg-5 mt-3">
-                                                                <button class="orange-btn">Submit reply</button>
-                                                            </div>
+                                                            <span class="ticketPosting w-auto">Posted at {{ data.created_at|date:"H:i A" }}</span> 
                                                         </div>
-                                                    </form>
-
+                                                        <h4 class="ticketQuestion">{{ data.title }}</h4> 
+                                                        <p class="ticketPara2">{{ data.description }}</p>  
+                                                        <div class="border-box mt-3">
+                                                            <form action="" method="POST">  
+                                                                {% csrf_token %} 
+                                                                <div class="row">
+                                                                    <div class="col-md-4 mt-3">
+                                                                        <label for="" class="allLbl">Email</label>
+                                                                        <input type="email" class="allinput w-100" value="{{ data.useremail }}" readonly>  
+                                                                    </div>
+                                                                    <div class="col-md-4 mt-3">
+                                                                        <label for="" class="allLbl">Priority Status</label>
+                                                                        <select name="priority" id="" class="allinput w-100"> 
+                                                                            <option value="high" {% if data.priority == 'high' %}selected{% endif %}>High</option>
+                                                                            <option value="medium" {% if data.priority == 'medium' %}selected{% endif %}>Medium</option>
+                                                                            <option value="low" {% if data.priority == 'low' %}selected{% endif %}>Low</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="col-md-4 mt-3">
+                                                                        <label for="" class="allLbl">Status</label>
+                                                                        <select name="status" id="" class="allinput w-100">  
+                                                                            <option value="on-going" {% if data.status == 'on-going' %}selected{% endif %}>On Going</option>
+                                                                            <option value="resolved" {% if data.status == 'resolved' %}selected{% endif %}>Resolved</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="col-12 mt-3">
+                                                                        <label for="" class="allLbl">Ticket Body</label>
+                                                                        <textarea placeholder="Type ticket issue here ..." name="body" id="" cols="30" rows="10" class="allinput w-100">{{ data.body }}</textarea>  <!-- Use data.body -->
+                                                                    </div>
+                                                                    <div class="col-12 text-end mt-lg-5 mt-3">
+                                                                        <button type="submit" class="orange-btn">Submit reply</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </section>
+                                    </section>  
+                                    
+                                
 
                             <!--footer start here-->
 

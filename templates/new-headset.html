@@ -174,7 +174,7 @@
                                                 </svg>                                    </a>
                                     <ul class="submenu">
                                         <li id="headset-tab-btn" class="submenu-item submenuactive" >Headsets</li>
-                                        <li id="tablet-tab-btn" class="submenu-item" >Tablets</li>
+                                        <a href="units" ><li id="tablet-tab-btn" class="submenu-item" >Tablets</li></a>
                                       </ul>
                                 </li>
 
@@ -280,8 +280,8 @@
                                                     {%csrf_token%}
                                                     <div class="row">
                                                         <div class="col-lg-4 mt-3">
-                                                            <label for="vrName" class="allLbl">Name</label>
-                                                            <input type="text" id="vrName" class="allinput w-100">
+                                                            <label for="name" class="allLbl">Name</label>
+                                                            <input type="text" id="name" class="allinput w-100">
                                                         </div>
                                                         <div class="col-lg-4 mt-3">
                                                             <label for="modelNumber" class="allLbl">Model Number</label>
@@ -310,6 +310,8 @@
                                                             <i class="fas fa-plus me-2"></i>Add Headset
                                                         </button>
                                                     </a>
+                                                    <p class="error-text" id="error"></p>
+                                                    <p class="success-text" id="success"></p>
                                                 </form>
                                             </div>
                                         </div>

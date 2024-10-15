@@ -173,8 +173,8 @@
                                                 <path d="M7.41 8.58008L12 13.1701L16.59 8.58008L18 10.0001L12 16.0001L6 10.0001L7.41 8.58008Z" fill="#636466"/>
                                                 </svg>                                    </a>
                                     <ul class="submenu">
-                                        <li id="headset-tab-btn" class="submenu-item submenuactive" >Headsets</li>
-                                        <li id="tablet-tab-btn" class="submenu-item" >Tablets</li>
+                                        <a href="units" ><li id="headset-tab-btn" class="submenu-item " >Headsets</li></a>
+                                        <li id="tablet-tab-btn" class="submenu-item submenuactive" >Tablets</li>
                                       </ul>
                                 </li>
 
@@ -276,35 +276,42 @@
                                         <div class="col-12">
                                             <h2 class="sub-heading marginTopAll">Tablet Information</h2>
                                             <div class="border-box mt-3">
-                                                <form action="">
+                                                <form id="tabletForm" action="" method="post">
+                                                    {%csrf_token%}
                                                     <div class="row">
                                                         <div class="col-lg-4 mt-3">
-                                                            <label for="" class="allLbl">Name</label>
-                                                            <input type="text" class="allinput w-100">
+                                                            <label for="name" class="allLbl">Name</label>
+                                                            <input type="text" id="name" class="allinput w-100">
                                                         </div>
                                                         <div class="col-lg-4 mt-3">
-                                                            <label for="" class="allLbl">Model Number</label>
-                                                            <input type="text" class="allinput w-100">
+                                                            <label for="modelNumber" class="allLbl">Model Number</label>
+                                                            <input type="text" id="modelNumber" class="allinput w-100">
                                                         </div>
                                                         <div class="col-lg-4 mt-3">
-                                                            <label for="" class="allLbl">Serial Number</label>
-                                                            <input type="text" class="allinput w-100">
+                                                            <label for="serialNumber" class="allLbl">Serial Number</label>
+                                                            <input type="text" id="serialNumber" class="allinput w-100">
                                                         </div>
                                                         <div class="col-12 mt-3">
-                                                            <label for="" class="allLbl">Bar code Number</label>
-                                                            <input type="number" class="allinput w-100">
+                                                            <label for="barcodeNumber" class="allLbl">Bar code Number</label>
+                                                            <input type="number" id="barcodeNumber" class="allinput w-100">
                                                         </div>
                                                         <div class="col-lg-4 mt-3">
-                                                            <label for="" class="allLbl">Assigned Venue</label>
-                                                            <input type="text" class="allinput w-100">
+                                                            <label for="assignedVenue" class="allLbl">Assigned Venue</label>
+                        <select id="assignedVenue" class="allinput w-100" name="assigned_venue">
+                            <option value="">Select Venue</option>
+                            {% for venue in venues %}
+                                <option value="{{ venue.id }}">{{ venue.name }}</option>
+                            {% endfor %}
+                        </select>
                                                         </div>
-                                                       
                                                     </div>
-                                                    <a href="#"> <button class="mt-4 orange-btn" data-bs-toggle="modal"
-                                                        data-bs-target="#newTicket" aria-label="New Ticket">
-                                                        <i class="fas fa-plus me-2"></i>Add Tablet
-                                                    </button>
-                                                </a>
+                                                    <a href="#">
+                                                        <button type="submit" class="mt-4 orange-btn" >
+                                                            <i class="fas fa-plus me-2"></i>Add Tablet
+                                                        </button>
+                                                    </a>
+                                                    <p class="error-text" id="error"></p>
+                                                    <p class="success-text" id="success"></p>
                                                 </form>
                                             </div>
                                         </div>
