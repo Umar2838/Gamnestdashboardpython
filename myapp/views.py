@@ -6,6 +6,10 @@ from django.contrib.auth import authenticate,login as django_login,logout
 from django.contrib.auth.models import User
 from .models import Role,Profile,Venues,Tickets,Headset,Tablet
 from django.core.paginator import Paginator
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .serializers import TicketSerializer
+from rest_framework import generics
 
 
 def login(request):
@@ -41,7 +45,6 @@ def login(request):
     return render(request, 'login.html')
 
 
-@login_required
 def index(request):
     if request.user.is_authenticated:
         username = request.user.username
@@ -49,7 +52,6 @@ def index(request):
         username = None    
     return render(request,'index.html',{'username':username})
 
-@login_required
 def venues(request):
     if request.user.is_authenticated:
         username = request.user.username
@@ -79,26 +81,22 @@ def venues(request):
         venue_page_number = request.GET.get('page',1)
         venuepage_obj = venue_paginator.get_page(venue_page_number)   
     return render(request,'venues.html',{'username':username,'venues':venues,'venuepage_obj':venuepage_obj})
-@login_required
 def new_venue(request):
     if request.user.is_authenticated:
         username = request.user.username
     return render(request,'new-venue.html',{'username':username})
-@login_required
 def edit_venue(request):
     if request.user.is_authenticated:
         username = request.user.username
     else:
         username = None    
     return render(request,'edit-venue.html',{'username':username})
-@login_required
 def games(request):
     if request.user.is_authenticated:
         username = request.user.username
     else:
         username = None    
     return render(request,'games.html',{'username':username})
-@login_required
 def tickets(request):
     if request.user.is_authenticated:
         username = request.user.username
@@ -127,7 +125,16 @@ def tickets(request):
         tickets_page_number = request.GET.get('page',1)
         ticketspage_obj = tickets_paginator.get_page(tickets_page_number)   
     return render(request,'tickets.html',{'username':username,'tickets':tickets,'ticketspage_obj':ticketspage_obj})
-@login_required
+
+class TicketspurchaseView(generics.ListAPIView):
+    queryset = Tickets.objects.all()
+    serializer_class = TicketSerializer
+    
+def getTickets(request):
+    tickets = Tickets.objects.all()
+    serializer = TicketSerializer(tickets,many=True)
+    return Response(serializer.data)
+
 def units(request):
     if request.user.is_authenticated:
         username = request.user.username  
@@ -142,7 +149,6 @@ def units(request):
         tabletspage_obj = tablets_paginator.get_page(tablets_page_number)   
     return render(request,'units.html',{'username':username,'headsets':headsets,'headsetspage_obj':headsetspage_obj,'tablets':tablets,'tabletspage_obj':tabletspage_obj})
 
-@login_required
 def newheadset(request):
     if request.method == 'POST':
         try:
@@ -182,7 +188,6 @@ def newheadset(request):
     venues = Venues.objects.all()
     return render(request, 'new-headset.html', {'username': request.user.username, 'venues': venues})
 
-@login_required
 def new_tablet(request):
     if request.method == 'POST':
         try:
@@ -220,7 +225,6 @@ def new_tablet(request):
     venues = Venues.objects.all()
     return render(request, 'new-tablet.html', {'username': request.user.username, 'venues': venues})
 
-@login_required
 def statistics(request):
     if request.user.is_authenticated:
         username = request.user.username
@@ -229,7 +233,7 @@ def statistics(request):
     return render(request,'statistics.html',{'username':username})
 # views.py
 
-@login_required
+
 def users(request):
     username = request.user.username
 
@@ -301,7 +305,6 @@ def users(request):
 
     return render(request, 'users.html', {'username': username, 'roles': roles, 'page_obj': userpage_obj,'rolepage_obj':rolepage_obj})
 
-@login_required
 def support(request):
     if request.user.is_authenticated:
         username = request.user.username
@@ -320,10 +323,8 @@ import json
 
 
 def supportTicketDetail(request):
-    
     return render(request, 'support-ticket-detail.html')
 
-@login_required
 def settings(request):
     # Initialize variables
     username = request.user.username
@@ -369,7 +370,6 @@ def settings(request):
     # Render the settings page with user info
     return render(request, 'settings.html', {'username': username, 'email': email, 'errormessage': errormessage, 'successmessage': successmessage})
 
-@login_required
 def logoutbtn(request):
     if request.method == 'POST':
         logout(request)

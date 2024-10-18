@@ -47,7 +47,7 @@ class Tickets(models.Model):
 
     def __str__(self):
         return self.name    
-    
+  
 class Headset(models.Model):
     name = models.CharField(max_length=245)
     modelNo = models.CharField(max_length=245)
