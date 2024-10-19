@@ -492,7 +492,7 @@ ticketForm && ticketForm.addEventListener('submit', function (e) {
 // ============================== Support ticket show ============================================//
 document.addEventListener('DOMContentLoaded', function () {
 
-  fetch('http://localhost:8001/api/tickets/')
+  fetch('http://localhost:34.229.247.90/api/tickets/')
     .then(response => response.json())
     .then(data => {
       console.log(data);
@@ -538,7 +538,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 const handleopenTicket = (ticket_id) => {
-  fetch('http://localhost:8001/api/tickets/')
+  fetch('http://34.229.247.90/api/tickets/')
     .then(response => response.json())
     .then(data => {
       console.log("data", data[0].id)
